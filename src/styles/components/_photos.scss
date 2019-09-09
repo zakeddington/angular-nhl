@@ -1,0 +1,42 @@
+
+// Player photos
+// -----------------------------------------------------------------+
+
+.player-photo {
+	background: url($image-path+'/player-profile.png') center center no-repeat;
+	background-size: contain;
+	border: 1px solid $color-grey-med;
+	border-radius: 50%;
+	display: block;
+	height: 60px;
+	margin: 0 auto;
+	overflow: hidden;
+	width: 60px;
+
+	@media (min-width: $breakpoint-desktop-min) {
+		height: 100px;
+		width: 100px;
+	}
+
+	@media (max-width: $breakpoint-mobile-max) {
+		display: none;
+	}
+
+	.photo {
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		display: block;
+		height: 100%;
+		width: 100%;
+	}
+}
+
+// Team logos
+// -----------------------------------------------------------------+
+
+.team-logo {
+	display: block;
+	height: 50px;
+	width: 50px;
+}

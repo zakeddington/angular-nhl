@@ -1,0 +1,15 @@
+
+// Game Intro
+// -----------------------------------------------------------------+
+
+.game-intro {
+	background: $color-white;
+	padding: 2em;
+}
+
+.game-intro-media {
+	img,
+	video {
+		width: 100%;
+	}
+}

@@ -1,0 +1,40 @@
+
+// Video Player
+// -----------------------------------------------------------------+
+
+.video-trigger {
+	background: none;
+	border: none;
+	padding: 0;
+	position: relative;
+	width: 100%;
+
+	.svg-icon {
+		display: block;
+		fill: $color-white;
+		height: 10em;
+		left: 50%;
+		opacity: 0.9;
+		position: absolute;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		width: 10em;
+
+		@media (min-width: $breakpoint-tablet-min) and (max-width: $breakpoint-tablet-max) {
+			height: 8em;
+			width: 8em;
+		}
+
+		@media (max-width: $breakpoint-mobile-max) {
+			height: 5em;
+			width: 5em;
+		}
+	}
+
+	&:hover,
+	&:focus {
+		.svg-icon {
+			opacity: 1;
+		}
+	}
+}

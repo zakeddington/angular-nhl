@@ -1,0 +1,33 @@
+
+// Utilities and global styles
+// -----------------------------------------------------------------+
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import 'config/variables';
+@import 'config/mixins';
+
+@import 'base/reset';
+@import 'base/breakpoint-indicator';
+@import 'base/typography';
+@import 'base/grid';
+@import 'base/layout';
+@import 'base/svg-icons';
+
+@import 'components/buttons';
+@import 'components/datepicker';
+@import 'components/loader';
+@import 'components/photos';
+@import 'components/tooltip';
+@import 'components/video-player';
+
+@import 'components/global/header';
+
+@import 'components/game-detail/game-header';
+@import 'components/game-detail/game-intro';
+@import 'components/game-detail/scoreboard';
+@import 'components/game-detail/stars';
+@import 'components/game-detail/team-stats';
+@import 'components/game-detail/period-summary';
+
+@import 'components/team-branding';
+
+@import 'base/classes';

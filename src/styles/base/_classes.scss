@@ -1,0 +1,47 @@
+
+// Utility Classes
+// -----------------------------------------------------------------+
+
+.pull-left {
+	float: left;
+}
+
+.pull-right {
+	float: right;
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+
+.clear {
+	clear: both;
+}
+
+.accelerate {
+	@include accelerate;
+}
+
+.center-block {
+	@include center-block;
+}
+
+.clearfix {
+	@include clearfix;
+}
+
+.offscreen {
+	@include offscreen;
+}
+
+.show {
+	@include show;
+}
+
+.hide {
+	@include hide;
+}
+
+.text-hide {
+	@include text-hide;
+}

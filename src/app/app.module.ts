@@ -1,5 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { ScheduleModule } from './schedule/schedule.module';
@@ -34,6 +35,7 @@ const appRoutes: Routes = [
       appRoutes
     ),
     BrowserModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

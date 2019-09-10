@@ -1,1 +1,26 @@
-<p>schedule-results works!</p>
+<div class="schedule-results">
+  <div class="schedule-results-group" *ngFor="let group of data$ | async">
+    <h3>{{group.date}}</h3>
+    <ul class="schedule-results-games">
+      <li *ngFor="let game of group.games" [ngClass]="game.gameStatusClass">
+        <a routerLink="{{route}}{{game.id}}">
+          <div class="schedule-results-game-status">{{game.gameStatus}}</div>
+          <div class="schedule-results-team away">
+<!--            <Logo teamId={game.teams.away.id} />-->
+            <span class="schedule-results-name">{{game.teams.away.name}}
+									<span class="schedule-results-record">({{game.teams.away.record}})</span>
+								</span>
+            <span class="schedule-results-score">{{game.teams.away.score}}</span>
+          </div>
+          <div class="schedule-results-team home">
+<!--            <Logo teamId={game.teams.home.id} />-->
+            <span class="schedule-results-name">{{game.teams.home.name}}
+									<span class="schedule-results-record">({{game.teams.home.record}})</span>
+								</span>
+            <span class="schedule-results-score">{{game.teams.home.score}}</span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

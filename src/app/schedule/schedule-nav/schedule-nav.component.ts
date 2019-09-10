@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CONSTANTS } from '../../config/Constants';
 import * as moment from 'moment';
+import { ScheduleService } from '../../services/schedule.service';
 
 @Component({
   selector: 'app-schedule-nav',
@@ -24,7 +25,7 @@ export class ScheduleNavComponent implements OnInit {
     this.startDate = startDate;
   }
 
-  constructor() {
+  constructor(private scheduleService: ScheduleService) {
     this.getScheduleStartDate();
   }
 
@@ -81,6 +82,7 @@ export class ScheduleNavComponent implements OnInit {
     e.preventDefault();
     const curDateObj = dateObj;
     const curNavDates: Array<any> = this.navDates;
+    const urlDate = curDateObj.day.format(CONSTANTS.momentOptions.apiFormat);
 
     curNavDates.forEach((navDate) => {
       navDate.isActive = curDateObj.day === navDate.day;
@@ -89,16 +91,16 @@ export class ScheduleNavComponent implements OnInit {
     this.selectedDate = curDateObj.day;
     this.navDates = curNavDates;
 
-    // this.props.fetchGames(urlDate, urlDate);
+    this.scheduleService.getScheduleGames(urlDate, urlDate);
   }
 
   onDateSelected(e) {
     const dateObj = moment(e.value);
-    // let urlDate = dateObj.format(CONSTANTS.momentOptions.apiFormat);
+    const urlDate = dateObj.format(CONSTANTS.momentOptions.apiFormat);
     //
     // this.props.history.push(`${CONSTANTS.routePaths.schedule}${urlDate}`);
     //
     this.setNavDates(dateObj);
-    // this.props.fetchGames(urlDate, urlDate);
+    this.scheduleService.getScheduleGames(urlDate, urlDate);
   }
 }

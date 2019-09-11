@@ -4,7 +4,9 @@
     <input matInput [matDatepicker]="picker" placeholder="Choose a date" (dateChange)="onDateSelected($event)">
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
-  <button class="datepicker-trigger" (click)="picker.open()">Open</button>
+  <button class="datepicker-trigger" (click)="picker.open()">
+    <app-icon [iconBaseUrl]="iconBaseUrl" [iconId]="'calendar'"></app-icon>
+  </button>
   <ul class="schedule-nav-items">
     <li *ngFor="let navDate of navDates">
       <a href="/schedule/{{navDate.urlDate}}" class="schedule-nav-item" [class.is-active]="navDate.isActive ? 'is-active' : ''" (click)="onNavClick($event, navDate)">

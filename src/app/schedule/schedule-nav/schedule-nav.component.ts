@@ -12,6 +12,7 @@ export class ScheduleNavComponent implements OnInit {
   selectedDate: object;
   navDates: object[];
   startDate: object;
+  iconBaseUrl: string;
 
   getScheduleStartDate() {
     const dateFormat = CONSTANTS.momentOptions.apiFormat;
@@ -27,6 +28,7 @@ export class ScheduleNavComponent implements OnInit {
 
   constructor(private scheduleService: ScheduleService) {
     this.getScheduleStartDate();
+    this.iconBaseUrl = CONSTANTS.imgUrl.icon.base;
   }
 
   ngOnInit() {

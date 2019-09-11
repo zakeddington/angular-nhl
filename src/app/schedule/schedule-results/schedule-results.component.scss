@@ -86,7 +86,7 @@
     display: flex;
     padding-top: 0.5em;
 
-    .team-logo {
+    ::ng-deep .team-logo {
       height: 2em;
       margin-right: 1em;
       width: 2em;

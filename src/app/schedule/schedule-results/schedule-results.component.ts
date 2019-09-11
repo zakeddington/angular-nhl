@@ -12,6 +12,7 @@ export class ScheduleResultsComponent implements OnInit, OnDestroy {
   data$: any;
   subscription: Subscription;
   route: string;
+  logoBaseUrl: string;
 
   constructor(private scheduleService: ScheduleService) {
     this.data$ = this.scheduleService.subscribeToScheduleService();
@@ -19,6 +20,7 @@ export class ScheduleResultsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route = CONSTANTS.routePaths.game;
+    this.logoBaseUrl = CONSTANTS.imgUrl.logoTeams.base;
   }
 
   ngOnDestroy() {

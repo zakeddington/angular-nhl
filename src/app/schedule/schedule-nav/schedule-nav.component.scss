@@ -5,10 +5,12 @@
 // -----------------------------------------------------------------+
 
 .schedule-nav {
+  align-items: center;
   background: $color-grey-dark;
   border: 1px solid $color-grey-dark;
   display: flex;
   flex-wrap: wrap;
+  line-height: 2rem;
   margin-bottom: 3em;
 }
 
@@ -20,10 +22,11 @@
   display: flex;
   font-weight: 700;
   height: 100%;
+  min-height: 2rem;
   text-transform: uppercase;
   transition: all $anim-speed $anim-ease;
 
-  .svg-icon {
+  ::ng-deep .svg-icon {
     fill: $color-white;
     height: 1.5rem;
     width: 1.5rem;
@@ -34,7 +37,7 @@
     background: $color-grey-light;
     color: $color-grey-dark;
 
-    .svg-icon {
+    ::ng-deep .svg-icon {
       fill: $color-grey-dark;
     }
   }
@@ -68,7 +71,6 @@
       border: none;
       color: $color-white;
       display: block;
-      padding: 5px;
       text-decoration: none;
       transition: all $anim-speed $anim-ease;
       width: 100%;
@@ -87,9 +89,6 @@
         background: $color-white;
         color: $color-grey-dark;
         cursor: default;
-        display: block;
-        padding: 5px;
-        width: 100%;
       }
     }
   }

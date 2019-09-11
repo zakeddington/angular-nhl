@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ScheduleService } from '../../services/schedule.service';
-import { Subscription } from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import { CONSTANTS } from '../../config/Constants';
 
 @Component({
@@ -9,9 +9,9 @@ import { CONSTANTS } from '../../config/Constants';
   styleUrls: ['./schedule-results.component.scss']
 })
 export class ScheduleResultsComponent implements OnInit, OnDestroy {
-  data$: any;
-  subscription: Subscription;
-  route: string;
+  data$: Observable<any>;
+  subscription: Subscription = new Subscription();
+  routePath: string;
   logoBaseUrl: string;
 
   constructor(private scheduleService: ScheduleService) {
@@ -19,7 +19,7 @@ export class ScheduleResultsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route = CONSTANTS.routePaths.game;
+    this.routePath = '/' + CONSTANTS.routePaths.game;
     this.logoBaseUrl = CONSTANTS.imgUrl.logoTeams.base;
   }
 

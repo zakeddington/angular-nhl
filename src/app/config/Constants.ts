@@ -1,7 +1,7 @@
 export const CONSTANTS = {
   routePaths: {
-    schedule: '/schedule/',
-    game: '/game/',
+    schedule: 'schedule',
+    game: 'game',
   },
 
   imgUrl: {

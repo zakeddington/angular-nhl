@@ -28,7 +28,6 @@ export class ScheduleService {
   }
 
   processScheduleData(data) {
-    console.log('processScheduleData data', data);
     const { dates } = data;
     const results = [];
 

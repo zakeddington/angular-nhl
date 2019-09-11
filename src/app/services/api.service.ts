@@ -43,21 +43,6 @@ export class ApiService {
       .pipe(
         catchError(this.handleError)
       );
-
-    // const response = await fetch(url, {
-    //   method: 'GET',
-    //   headers: {
-    //     Accept: 'application/json'
-    //   }
-    // });
-    //
-    // if (!response.ok) {
-    //   throw new Error(`NHLService getAllGames failed, HTTP status ${response.status}`);
-    // }
-    //
-    // const data = await response.json();
-    //
-    // return data;
   }
 
   private handleError(error: HttpErrorResponse) {

@@ -2,9 +2,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-
+import { CONSTANTS } from './config/Constants';
 import { ScheduleModule } from './schedule/schedule.module';
-
 import { AppComponent } from './app.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 
@@ -15,12 +14,16 @@ const appRoutes: Routes = [
   //   component: HeroListComponent,
   //   data: { title: 'Heroes List' }
   // },
-  // { path: '',
-  //   redirectTo: '/schedule',
-  //   pathMatch: 'full'
-  // },
+  { path: '',
+    redirectTo: '/' + CONSTANTS.routePaths.schedule,
+    pathMatch: 'full'
+  },
   {
-    path: '',
+    path: CONSTANTS.routePaths.schedule,
+    component: ScheduleComponent,
+  },
+  {
+    path: 'schedule/:id',
     component: ScheduleComponent,
   }
 ];

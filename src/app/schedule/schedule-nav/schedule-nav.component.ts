@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { CONSTANTS } from '../../config/Constants';
 import * as moment from 'moment';
 import { ScheduleService } from '../../services/schedule.service';
@@ -12,27 +13,41 @@ export class ScheduleNavComponent implements OnInit {
   selectedDate: object;
   navDates: object[];
   startDate: object;
+  apiStartDate: string;
   iconBaseUrl: string;
+  routePath: string;
 
   getScheduleStartDate() {
-    const dateFormat = CONSTANTS.momentOptions.apiFormat;
-    let startDate = moment();
-    const pathname = window.location.pathname;
-
-    if (pathname.indexOf(CONSTANTS.routePaths.schedule) !== -1) {
-      const date = pathname.replace(CONSTANTS.routePaths.schedule, '');
-      startDate = moment(date, dateFormat);
-    }
-    this.startDate = startDate;
+    console.log(this.route);
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.setStartDate(params.get('id'));
+    });
   }
 
-  constructor(private scheduleService: ScheduleService) {
+  setStartDate(date) {
+    const dateFormat = CONSTANTS.momentOptions.apiFormat;
+    let startDate = moment();
+
+    if (date) {
+      startDate = moment(date, dateFormat);
+    }
+
+    this.startDate = startDate;
+    this.apiStartDate = startDate.format(CONSTANTS.momentOptions.apiFormat);
+  }
+
+  constructor(
+    private scheduleService: ScheduleService,
+    private route: ActivatedRoute,
+  ) {
     this.getScheduleStartDate();
     this.iconBaseUrl = CONSTANTS.imgUrl.icon.base;
+    this.routePath = '/' + CONSTANTS.routePaths.schedule;
   }
 
   ngOnInit() {
     this.setNavDates(this.startDate);
+    this.scheduleService.getScheduleGames(this.apiStartDate, this.apiStartDate);
   }
 
   setNavDates(dateObj) {
@@ -75,7 +90,6 @@ export class ScheduleNavComponent implements OnInit {
       urlDate: item.day.format(CONSTANTS.momentOptions.apiFormat),
     }));
 
-    console.log('navDates', navDates);
     this.selectedDate = curDay;
     this.navDates = navDates;
   }
@@ -99,9 +113,7 @@ export class ScheduleNavComponent implements OnInit {
   onDateSelected(e) {
     const dateObj = moment(e.value);
     const urlDate = dateObj.format(CONSTANTS.momentOptions.apiFormat);
-    //
-    // this.props.history.push(`${CONSTANTS.routePaths.schedule}${urlDate}`);
-    //
+
     this.setNavDates(dateObj);
     this.scheduleService.getScheduleGames(urlDate, urlDate);
   }

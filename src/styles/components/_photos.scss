@@ -3,7 +3,7 @@
 // -----------------------------------------------------------------+
 
 .player-photo {
-	background: url($image-path+'/player-profile.png') center center no-repeat;
+	background: url($image-path + '/player-profile.png') center center no-repeat;
 	background-size: contain;
 	border: 1px solid $color-grey-med;
 	border-radius: 50%;

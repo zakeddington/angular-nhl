@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { GameIntroComponent } from './game-intro/game-intro.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { StarsComponent } from './stars/stars.component';
+import { TeamStatsComponent } from './team-stats/team-stats.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { StarsComponent } from './stars/stars.component';
     GameIntroComponent,
     ScoreboardComponent,
     StarsComponent,
+    TeamStatsComponent,
   ],
   imports: [
     CommonModule,

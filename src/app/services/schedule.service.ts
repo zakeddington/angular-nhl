@@ -93,13 +93,12 @@ export class ScheduleService {
       results.push(curResults);
     });
 
-    console.log('ScheduleService results', results);
+    // console.log('ScheduleService results', results);
 
     if (!dates) {
       throw new Error(`ScheduleService getScheduleGames failed, dates not returned`);
     }
 
     this.scheduleData.next(results);
-    // return results;
   }
 }

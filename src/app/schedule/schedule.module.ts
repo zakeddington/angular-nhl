@@ -5,19 +5,19 @@ import { MaterialModule } from '../material.module';
 import { ScheduleComponent } from './schedule.component';
 import { ScheduleNavComponent } from './schedule-nav/schedule-nav.component';
 import { ScheduleResultsComponent } from './schedule-results/schedule-results.component';
-import { IconComponent } from '../shared/logo/icon.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
     ScheduleComponent,
     ScheduleNavComponent,
     ScheduleResultsComponent,
-    IconComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
     RouterModule,
+    SharedModule,
   ],
 })
 export class ScheduleModule { }

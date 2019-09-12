@@ -13,6 +13,16 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
+  getGameDetail(gameId) {
+    const url = `${this.apiBaseUrl}game/${gameId}/feed/live`;
+
+    console.log('api url', url);
+
+    return this.getData(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   getSchedule(strStart, strEnd, arrParams) {
     let url = `${this.apiBaseUrl}schedule`;
     let params = '';

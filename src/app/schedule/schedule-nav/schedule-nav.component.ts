@@ -18,7 +18,6 @@ export class ScheduleNavComponent implements OnInit {
   routePath: string;
 
   getScheduleStartDate() {
-    console.log(this.route);
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.setStartDate(params.get('id'));
     });

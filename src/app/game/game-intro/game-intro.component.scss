@@ -1,0 +1,16 @@
+@import 'config/variables';
+
+// Game Intro
+// -----------------------------------------------------------------+
+
+.game-intro {
+  background: $color-white;
+  padding: 2em;
+}
+
+.game-intro-media {
+  ::ng-deep img,
+  ::ng-deep video {
+    width: 100%;
+  }
+}

@@ -1,5 +1,5 @@
 <div class="schedule-results" *ngIf="data$ | async; let data">
-  <div *ngIf="data.length > 0; else noResults">
+  <ng-container *ngIf="data.length > 0; else noResults">
     <div class="schedule-results-group" *ngFor="let group of data">
       <h3>{{group.date}}</h3>
       <ul class="schedule-results-games">
@@ -24,7 +24,7 @@
         </li>
       </ul>
     </div>
-  </div>
+  </ng-container>
   <ng-template #noResults>
     <h2>There are no games scheduled on this date.</h2>
   </ng-template>

@@ -14,7 +14,7 @@ export class GameHeaderComponent implements OnInit, OnDestroy {
   logoBaseUrl: string;
 
   constructor(private gameService: GameService) {
-    this.data$ = this.gameService.subscribeToGameService();
+    this.data$ = this.gameService.subscribeToGameData();
   }
 
   ngOnInit() {

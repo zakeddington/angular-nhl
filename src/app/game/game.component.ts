@@ -27,6 +27,7 @@ export class GameComponent implements OnInit {
 
   ngOnInit() {
     this.gameService.getGameDetail(this.gameId);
+    this.gameService.getGameContent(this.gameId);
   }
 
   goBack() {

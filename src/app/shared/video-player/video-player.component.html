@@ -1,0 +1,11 @@
+<ng-container *ngIf="showVideo; else posterImg">
+  <video [src]="video" [poster]="poster" controls autoPlay="true"></video>
+</ng-container>
+
+<ng-template #posterImg>
+  <button class="video-trigger" (click)="toggleVideoPlayer()">
+    <img [src]="poster" [alt]="altText" />
+    <app-icon iconId="play-circle-filled"></app-icon>
+  </button>
+</ng-template>
+

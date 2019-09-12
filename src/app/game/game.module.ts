@@ -4,11 +4,13 @@ import { RouterModule } from '@angular/router';
 import { GameComponent } from './game.component';
 import { GameHeaderComponent } from './game-header/game-header.component';
 import { SharedModule } from '../shared/shared.module';
+import { GameIntroComponent } from './game-intro/game-intro.component';
 
 @NgModule({
   declarations: [
     GameComponent,
     GameHeaderComponent,
+    GameIntroComponent,
   ],
   imports: [
     CommonModule,

@@ -16,7 +16,13 @@ export class ApiService {
   getGameDetail(gameId) {
     const url = `${this.apiBaseUrl}game/${gameId}/feed/live`;
 
-    console.log('api url', url);
+    return this.getData(url).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getGameContent(gameId) {
+    const url = `${this.apiBaseUrl}game/${gameId}/content`;
 
     return this.getData(url).pipe(
       catchError(this.handleError)

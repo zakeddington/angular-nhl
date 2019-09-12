@@ -85,6 +85,8 @@ export class GameService {
       boxscoreTeams,
     };
 
+    console.log('getGameData', results);
+
     this.gameData.next(results);
   }
 
@@ -97,7 +99,7 @@ export class GameService {
   }
 
   processGameContent(data) {
-    console.log('processGameContent data', data);
+    // console.log('processGameContent data', data);
     const previewData = data.editorial.preview.items[0];
     const recapData = data.editorial.recap.items[0];
     const mediaData = data.media.epg;
@@ -146,7 +148,7 @@ export class GameService {
       recapPoster,
     };
 
-    console.log('getGameContent', results);
+    // console.log('getGameContent', results);
 
     this.gameContent.next(results);
   }

@@ -1,0 +1,13 @@
+@import 'config/variables';
+
+// Scoreboard & Stars container
+// -----------------------------------------------------------------+
+
+.scoreboard-stars {
+  margin: 2em auto;
+
+  @media (min-width: $breakpoint-desktop-min) {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}

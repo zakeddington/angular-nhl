@@ -8,6 +8,7 @@ import { GameIntroComponent } from './game-intro/game-intro.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { StarsComponent } from './stars/stars.component';
 import { TeamStatsComponent } from './team-stats/team-stats.component';
+import { PeriodSummaryComponent } from './period-summary/period-summary.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { TeamStatsComponent } from './team-stats/team-stats.component';
     ScoreboardComponent,
     StarsComponent,
     TeamStatsComponent,
+    PeriodSummaryComponent,
   ],
   imports: [
     CommonModule,

@@ -6,7 +6,6 @@ import { GameHeaderComponent } from './game-header/game-header.component';
 import { SharedModule } from '../shared/shared.module';
 import { GameIntroComponent } from './game-intro/game-intro.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
-import { StarsComponent } from './stars/stars.component';
 import { TeamStatsComponent } from './team-stats/team-stats.component';
 import { PeriodSummaryComponent } from './period-summary/period-summary.component';
 
@@ -16,7 +15,6 @@ import { PeriodSummaryComponent } from './period-summary/period-summary.componen
     GameHeaderComponent,
     GameIntroComponent,
     ScoreboardComponent,
-    StarsComponent,
     TeamStatsComponent,
     PeriodSummaryComponent,
   ],

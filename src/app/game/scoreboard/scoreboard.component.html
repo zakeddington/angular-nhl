@@ -1,25 +1,46 @@
 <ng-container *ngIf="data$ | async; let data">
-  <h3 class="header-title">{{data.gameStatus}}</h3>
-  <div class="scoreboard-results">
-    <div class="scoreboard-teams">
-      <div class="scoreboard-item">
-        <span>&nbsp;</span>
-      </div>
-      <div class="scoreboard-item">
-        <app-icon [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="data.teams.away.id"></app-icon>
-        <span>{{data.teams.away.name}}</span>
-      </div>
-      <div class="scoreboard-item">
-        <app-icon [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="data.teams.home.id"></app-icon>
-        <span>{{data.teams.home.name}}</span>
-      </div>
-    </div>
-    <div class="col scoreboard-periods" *ngFor="let goals of data.periodGoals">
-      <div>
-        <div class="scoreboard-item" *ngFor="let goal of goals">
-          <span>{{goal}}</span>
+  <div class="scoreboard-stars" *ngIf="data.periodGoals.length > 0">
+    <div class="scoreboard">
+      <h3 class="header-title">{{data.gameStatus}}</h3>
+      <div class="scoreboard-results">
+        <div class="scoreboard-teams">
+          <div class="scoreboard-item">
+            <span>&nbsp;</span>
+          </div>
+          <div class="scoreboard-item">
+            <app-icon [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="data.teams.away.id"></app-icon>
+            <span>{{data.teams.away.name}}</span>
+          </div>
+          <div class="scoreboard-item">
+            <app-icon [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="data.teams.home.id"></app-icon>
+            <span>{{data.teams.home.name}}</span>
+          </div>
+        </div>
+        <div class="col scoreboard-periods" *ngFor="let goals of data.periodGoals">
+          <div>
+            <div class="scoreboard-item" *ngFor="let goal of goals">
+              <span>{{goal}}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <ng-container *ngIf="data.stars">
+      <div class="stars">
+        <h3 class="header-title">Stars of the Game</h3>
+        <div class="stars-content">
+          <div class="stars-player" *ngFor="let star of data.stars">
+            <app-player-photo [photoUrl]="star.photo"></app-player-photo>
+            <span class="stars-name">
+              {{star.name}}
+              <span class="stars-team-name">{{star.teamName}}</span>
+            </span>
+            <span class="stars-stat">{{star.stat1}}</span>
+            <span class="stars-stat">{{star.stat2}}</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </ng-container>

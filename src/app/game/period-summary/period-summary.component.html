@@ -1,100 +1,102 @@
-<div class="period-summary" *ngIf="data$ | async; let data">
-  <h2 class="header-title">Period Summary</h2>
+<ng-container *ngIf="data$ | async; let data">
+  <div class="period-summary" *ngIf="data.length > 0">
+    <h2 class="header-title">Period Summary</h2>
 
-  <div class="period-summary-period" *ngFor="let period of data">
-    <h3 class="period-summary-title">{{period.periodName}}</h3>
+    <div class="period-summary-period" *ngFor="let period of data">
+      <h3 class="period-summary-title">{{period.periodName}}</h3>
 
-    <ng-container *ngIf="period.shootoutPlays.length > 0; else defaultLayout">
-      <div class="period-summary-item" *ngFor="let play of period.shootoutPlays">
-        <div class="period-summary-logo">
-          <app-icon [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="play.teamId"></app-icon>
-        </div>
-        <div class="period-summary-time"></div>
-        <div class="period-summary-photo">
-          <app-player-photo [photoUrl]="play.shooter.photo"></app-player-photo>
-        </div>
-        <div class="period-summary-player-info">
-          <span class="period-summary-player">
-            <span class="period-summary-name">{{play.shooter.name}}<ng-container *ngIf="play.shooter.desc">, </ng-container></span>
-            <span class="period-summary-goal-desc">{{play.shooter.desc}}</span>
-          </span>
-        </div>
-        <div class="period-summary-game-info">
-          <span class="period-summary-score team-{{play.teamId}} no-border">
-            <span [class]="play.isGoal ? 'team-background' : ''">{{play.shotResult}}</span>
-          </span>
-        </div>
-      </div>
-    </ng-container>
-
-    <ng-template #defaultLayout>
-      <div class="period-summary-subtitle">Goals</div>
-      <ng-container *ngIf="period.goals.length > 0; else noGoals">
-        <div class="period-summary-item" *ngFor="let goal of period.goals">
+      <ng-container *ngIf="period.shootoutPlays.length > 0; else defaultLayout">
+        <div class="period-summary-item" *ngFor="let play of period.shootoutPlays">
           <div class="period-summary-logo">
-            <app-icon [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="goal.teamId"></app-icon>
+            <app-icon [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="play.teamId"></app-icon>
           </div>
-          <div class="period-summary-time">{{goal.time}}</div>
+          <div class="period-summary-time"></div>
           <div class="period-summary-photo">
-            <app-player-photo [photoUrl]="goal.scorer.photo"></app-player-photo>
-          </div>
-          <div class="period-summary-player-info">
-          <span class="period-summary-player">
-            <span class="period-summary-name">{{goal.scorer.name}} ({{goal.scorer.total}}),</span>
-            <span class="period-summary-goal-desc">
-              {{goal.scorer.desc}}<ng-container *ngIf="goal.isEmptyNet"> (Empty Net)</ng-container>
-            </span>
-            <span class="period-summary-goal-type" *ngIf="goal.goalType !== 'EVEN'">
-              {{goal.goalType}}
-            </span>
-          </span>
-            <span class="period-summary-details">
-            <ng-container *ngFor="let assist of goal.assists; last as isLast">
-              <span>
-                {{assist.name}} ({{assist.total}})<ng-container *ngIf="!isLast">, </ng-container>
-              </span>
-            </ng-container>
-          </span>
-          </div>
-          <div class="period-summary-game-info">
-          <span class="period-summary-score team-{{goal.teamId}} team-border">
-            <span [class]="goal.score.away.isScoringTeam ? 'team-background' : ''">{{goal.score.away.name}} {{goal.score.away.goals}}</span>
-            <span [class]="goal.score.home.isScoringTeam ? 'team-background' : ''">{{goal.score.home.name}} {{goal.score.home.goals}}</span>
-          </span>
-          </div>
-        </div>
-      </ng-container>
-      <ng-template #noGoals>
-        <div class="period-summary-item">
-          <div class="period-summary-empty">No Goals</div>
-        </div>
-      </ng-template>
-
-      <div class="period-summary-subtitle">Penalties</div>
-      <ng-container *ngIf="period.penalties.length > 0; else noPenalties">
-        <div class="period-summary-item" *ngFor="let penalty of period.penalties">
-          <div class="period-summary-logo">
-            <app-icon [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="penalty.teamId"></app-icon>
-          </div>
-          <div class="period-summary-time">{{penalty.time}}</div>
-          <div class="period-summary-photo">
-            <app-player-photo [photoUrl]="penalty.penaltyOn.photo"></app-player-photo>
+            <app-player-photo [photoUrl]="play.shooter.photo"></app-player-photo>
           </div>
           <div class="period-summary-player-info">
             <span class="period-summary-player">
-              <span class="period-summary-name">{{penalty.penaltyOn.name}}</span>
+              <span class="period-summary-name">{{play.shooter.name}}<ng-container *ngIf="play.shooter.desc">, </ng-container></span>
+              <span class="period-summary-goal-desc">{{play.shooter.desc}}</span>
             </span>
-            <span class="period-summary-details">{{penalty.penaltyMin}} Minutes for {{penalty.penaltyType}}</span>
           </div>
-          <div class="period-summary-game-info"></div>
+          <div class="period-summary-game-info">
+            <span class="period-summary-score team-{{play.teamId}} no-border">
+              <span [class]="play.isGoal ? 'team-background' : ''">{{play.shotResult}}</span>
+            </span>
+          </div>
         </div>
       </ng-container>
-      <ng-template #noPenalties>
-        <div class="period-summary-item">
-          <div class="period-summary-empty">No Penalties</div>
-        </div>
-      </ng-template>
-    </ng-template>
 
+      <ng-template #defaultLayout>
+        <div class="period-summary-subtitle">Goals</div>
+        <ng-container *ngIf="period.goals.length > 0; else noGoals">
+          <div class="period-summary-item" *ngFor="let goal of period.goals">
+            <div class="period-summary-logo">
+              <app-icon [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="goal.teamId"></app-icon>
+            </div>
+            <div class="period-summary-time">{{goal.time}}</div>
+            <div class="period-summary-photo">
+              <app-player-photo [photoUrl]="goal.scorer.photo"></app-player-photo>
+            </div>
+            <div class="period-summary-player-info">
+            <span class="period-summary-player">
+              <span class="period-summary-name">{{goal.scorer.name}} ({{goal.scorer.total}}),</span>
+              <span class="period-summary-goal-desc">
+                {{goal.scorer.desc}}<ng-container *ngIf="goal.isEmptyNet"> (Empty Net)</ng-container>
+              </span>
+              <span class="period-summary-goal-type" *ngIf="goal.goalType !== 'EVEN'">
+                {{goal.goalType}}
+              </span>
+            </span>
+              <span class="period-summary-details">
+              <ng-container *ngFor="let assist of goal.assists; last as isLast">
+                <span>
+                  {{assist.name}} ({{assist.total}})<ng-container *ngIf="!isLast">, </ng-container>
+                </span>
+              </ng-container>
+            </span>
+            </div>
+            <div class="period-summary-game-info">
+            <span class="period-summary-score team-{{goal.teamId}} team-border">
+              <span [class]="goal.score.away.isScoringTeam ? 'team-background' : ''">{{goal.score.away.name}} {{goal.score.away.goals}}</span>
+              <span [class]="goal.score.home.isScoringTeam ? 'team-background' : ''">{{goal.score.home.name}} {{goal.score.home.goals}}</span>
+            </span>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noGoals>
+          <div class="period-summary-item">
+            <div class="period-summary-empty">No Goals</div>
+          </div>
+        </ng-template>
+
+        <div class="period-summary-subtitle">Penalties</div>
+        <ng-container *ngIf="period.penalties.length > 0; else noPenalties">
+          <div class="period-summary-item" *ngFor="let penalty of period.penalties">
+            <div class="period-summary-logo">
+              <app-icon [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="penalty.teamId"></app-icon>
+            </div>
+            <div class="period-summary-time">{{penalty.time}}</div>
+            <div class="period-summary-photo">
+              <app-player-photo [photoUrl]="penalty.penaltyOn.photo"></app-player-photo>
+            </div>
+            <div class="period-summary-player-info">
+              <span class="period-summary-player">
+                <span class="period-summary-name">{{penalty.penaltyOn.name}}</span>
+              </span>
+              <span class="period-summary-details">{{penalty.penaltyMin}} Minutes for {{penalty.penaltyType}}</span>
+            </div>
+            <div class="period-summary-game-info"></div>
+          </div>
+        </ng-container>
+        <ng-template #noPenalties>
+          <div class="period-summary-item">
+            <div class="period-summary-empty">No Penalties</div>
+          </div>
+        </ng-template>
+      </ng-template>
+
+    </div>
   </div>
-</div>
+</ng-container>

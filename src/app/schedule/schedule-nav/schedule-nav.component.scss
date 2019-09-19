@@ -13,6 +13,15 @@
   margin-bottom: 3em;
 }
 
+.datepicker-input {
+  border: none;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  visibility: hidden;
+  width: 0;
+}
+
 .datepicker-trigger {
   align-items: center;
   background: $color-grey-dark;

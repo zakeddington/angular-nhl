@@ -1,9 +1,7 @@
 
 <div class="schedule-nav">
-  <mat-form-field class="hide">
-    <input matInput [matDatepicker]="picker" placeholder="Choose a date" (dateChange)="onDateSelected($event)">
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+  <input class="datepicker-input" [matDatepicker]="picker" placeholder="Choose a date" (dateChange)="onDateSelected($event)">
+  <mat-datepicker #picker></mat-datepicker>
   <button class="datepicker-trigger" (click)="picker.open()">
     <app-icon [iconBaseUrl]="iconBaseUrl" [iconId]="'calendar'"></app-icon>
   </button>

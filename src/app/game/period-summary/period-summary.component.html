@@ -1,6 +1,6 @@
 <ng-container *ngIf="data$ | async; let data">
   <div class="period-summary" *ngIf="data.length > 0">
-    <h2 class="header-title">Period Summary</h2>
+<!--    <h2 class="header-title">Period Summary</h2>-->
 
     <div class="period-summary-period" *ngFor="let period of data">
       <h3 class="period-summary-title">{{period.periodName}}</h3>

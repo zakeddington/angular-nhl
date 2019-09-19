@@ -1,0 +1,36 @@
+@import 'config/variables';
+
+.tabs-nav {
+  background: $color-grey-dark;
+  color: $color-white;
+  display: flex;
+  font-size: 1rem;
+  margin-bottom: 0;
+  padding: 0;
+  width: 100%;
+
+  &-item {
+    margin: 0;
+    padding: 0;
+  }
+
+  &-link {
+    background: none;
+    border: none;
+    color: $color-white;
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+    padding: 1rem;
+    transition: all $anim-speed ease-in;
+
+    &:hover,
+    &:focus {
+      background: $color-grey-med-dark;
+    }
+
+    &.active {
+      background: $color-grey;
+    }
+  }
+}

@@ -21,6 +21,7 @@
 		transition: all $anim-speed $anim-ease;
 		visibility: hidden;
 		white-space: nowrap;
+		z-index: $z-index-default;
 	}
 
 	&:hover,

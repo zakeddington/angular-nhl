@@ -10,6 +10,7 @@ import { CONSTANTS } from '../config/Constants';
 export class GameService {
   private gameData = new Subject<any>();
   private gamePeriodData = new Subject<any>();
+  private gamePlayerData = new Subject<any>();
   private gameContent = new Subject<any>();
 
   constructor(private apiService: ApiService) { }
@@ -20,6 +21,10 @@ export class GameService {
 
   subscribeToGamePeriodData(): Observable<any> {
     return this.gamePeriodData.asObservable();
+  }
+
+  subscribeToGamePlayerData(): Observable<any> {
+    return this.gamePlayerData.asObservable();
   }
 
   subscribeToGameContent(): Observable<any> {
@@ -37,6 +42,7 @@ export class GameService {
   processGameData(data) {
     this.getGameData(data);
     this.getPeriodSummary(data);
+    this.getPlayerStats(data);
   }
 
   getGameData(data) {
@@ -95,9 +101,121 @@ export class GameService {
       boxscoreTeams,
     };
 
-    console.log('getGameData', results);
+    // console.log('getGameData', results);
 
     this.gameData.next(results);
+  }
+
+  getPlayerStats(data) {
+    // console.log('getPlayerStats', data);
+    const awayPlayers = data.liveData.boxscore.teams.away.players;
+    const homePlayers = data.liveData.boxscore.teams.home.players;
+    const results = {
+      teams: [
+        {
+          name: data.gameData.teams.away.name,
+          stats: this.createPlayerData(awayPlayers)
+        },
+        {
+          name: data.gameData.teams.home.name,
+          stats: this.createPlayerData(homePlayers)
+        }
+      ]
+    };
+
+    // console.log(awayPlayers, homePlayers);
+    // console.log(results);
+
+    this.gamePlayerData.next(results);
+  }
+
+  createPlayerData(players) {
+    const stats = [];
+    const forwards = [];
+    const defense = [];
+    const goalies = [];
+
+    Object.keys(players).forEach((key) => {
+      const player = players[key];
+      if (Object.keys(player.stats).length) {
+        const playerData = {
+          number: player.jerseyNumber,
+          name: player.person.fullName,
+          pos: player.position.abbreviation,
+        };
+
+        switch (player.position.code) {
+          case 'D':
+            defense.push(
+              Object.assign({
+                stats: this.getStatPercent(player.stats.skaterStats, 'faceOffWins', 'faceoffTaken', 'faceOffPercent'),
+              }, playerData)
+            );
+            break;
+          case 'G':
+            goalies.push(
+              Object.assign({
+                stats: this.getSavePercent(player.stats.goalieStats, 'saves', 'shots', 'savePercent'),
+              }, playerData)
+            );
+            break;
+          default:
+            forwards.push(
+              Object.assign({
+                stats: this.getStatPercent(player.stats.skaterStats, 'faceOffWins', 'faceoffTaken', 'faceOffPercent'),
+              }, playerData)
+            );
+            break;
+        }
+      }
+    });
+
+    forwards.sort((a, b) => a.number - b.number);
+    defense.sort((a, b) => a.number - b.number);
+    goalies.sort((a, b) => a.number - b.number);
+
+    stats.push({
+      position: 'Forwards',
+      players: forwards,
+    });
+
+    stats.push({
+      position: 'Defense',
+      players: defense,
+    });
+
+    stats.push({
+      position: 'Goalies',
+      players: goalies,
+    });
+
+    return stats;
+  }
+
+  getStatPercent(playerData, winPropName, totalPropName, newProp) {
+    const data = playerData;
+    const wins = data[winPropName];
+    const total = data[totalPropName];
+    data[newProp] = '-';
+
+    if (total) {
+      data[newProp] = Math.round((wins / total) * 100);
+    }
+
+    return data;
+  }
+
+  getSavePercent(playerData, winPropName, totalPropName, newProp) {
+    const data = playerData;
+    const wins = data[winPropName];
+    const total = data[totalPropName];
+    data[newProp] = '-';
+
+    if (total) {
+      data[newProp] = Math.round((wins / total) * 1000) / 1000;
+    }
+
+    return data;
   }
 
   getPeriodSummary(data) {
@@ -211,7 +329,7 @@ export class GameService {
       });
     }
 
-    console.log('periodPlays', periodPlays);
+    // console.log('periodPlays', periodPlays);
     this.gamePeriodData.next(periodPlays);
   }
 

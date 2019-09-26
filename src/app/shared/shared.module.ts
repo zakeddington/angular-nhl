@@ -5,6 +5,7 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
 import { PlayerPhotoComponent } from './player-photo/player-photo.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabsContentComponent } from './tabs/tabs-content.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { TabsContentComponent } from './tabs/tabs-content.component';
     PlayerPhotoComponent,
     TabsComponent,
     TabsContentComponent,
+    LoaderComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +25,7 @@ import { TabsContentComponent } from './tabs/tabs-content.component';
     PlayerPhotoComponent,
     TabsComponent,
     TabsContentComponent,
+    LoaderComponent,
   ]
 })
 export class SharedModule { }

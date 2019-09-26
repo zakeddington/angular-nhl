@@ -1,4 +1,4 @@
-<ng-container *ngIf="data$ | async; let data">
+<ng-container *ngIf="data$ | async; let data; else loader">
   <div class="team-stats" *ngIf="!data.isPreview">
     <table>
       <thead>
@@ -47,3 +47,7 @@
     </table>
   </div>
 </ng-container>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

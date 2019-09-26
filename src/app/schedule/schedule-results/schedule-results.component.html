@@ -1,4 +1,4 @@
-<div class="schedule-results" *ngIf="data$ | async; let data">
+<div class="schedule-results" *ngIf="data$ | async; let data; else loader">
   <ng-container *ngIf="data.length > 0; else noResults">
     <div class="schedule-results-group" *ngFor="let group of data">
       <h3>{{group.date}}</h3>
@@ -29,3 +29,7 @@
     <h2>There are no games scheduled on this date.</h2>
   </ng-template>
 </div>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

@@ -1,4 +1,4 @@
-<ng-container *ngIf="data$ | async; let data">
+<ng-container *ngIf="data$ | async; let data; else loader">
   <div class="scoreboard-stars" *ngIf="data.periodGoals.length > 0">
     <div class="scoreboard">
       <h3 class="header-title">{{data.gameStatus}}</h3>
@@ -44,3 +44,7 @@
     </ng-container>
   </div>
 </ng-container>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

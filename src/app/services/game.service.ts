@@ -113,10 +113,12 @@ export class GameService {
     const results = {
       teams: [
         {
+          id: data.gameData.teams.away.id,
           name: data.gameData.teams.away.name,
           stats: this.createPlayerData(awayPlayers)
         },
         {
+          id: data.gameData.teams.home.id,
           name: data.gameData.teams.home.name,
           stats: this.createPlayerData(homePlayers)
         }

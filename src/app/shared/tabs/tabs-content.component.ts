@@ -10,5 +10,8 @@ import { Component, Input } from '@angular/core';
 })
 export class TabsContentComponent {
   @Input() tabTitle: string;
+  @Input() iconClass: string;
+  @Input() iconBaseUrl: string;
+  @Input() iconId: string;
   @Input() active = false;
 }

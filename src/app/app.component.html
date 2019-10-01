@@ -4,6 +4,6 @@
   </div>
 </header>
 
-<div class="site-content container">
-  <router-outlet></router-outlet>
+<div class="site-content container" [@routerTransition]="animateRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
 </div>

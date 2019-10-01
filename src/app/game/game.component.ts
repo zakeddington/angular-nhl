@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { GameService } from '../services/game.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { routerTransition } from '../router.animations';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  styleUrls: ['./game.component.scss'],
+  animations: [ routerTransition ],
 })
 export class GameComponent implements OnInit {
   gameId: string;

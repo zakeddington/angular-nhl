@@ -1,5 +1,6 @@
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CONSTANTS } from './config/Constants';
@@ -10,21 +11,25 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { GameComponent } from './game/game.component';
 
 const appRoutes: Routes = [
-  { path: '',
+  {
+    path: '',
     redirectTo: '/' + CONSTANTS.routePaths.schedule,
     pathMatch: 'full'
   },
   {
     path: CONSTANTS.routePaths.schedule,
     component: ScheduleComponent,
+    data: { animRoute: 'schedule'}
   },
   {
     path: CONSTANTS.routePaths.schedule + '/:id',
     component: ScheduleComponent,
+    data: { animRoute: 'schedule'}
   },
   {
     path: CONSTANTS.routePaths.game + '/:id',
     component: GameComponent,
+    data: { animRoute: 'game'}
   }
 ];
 
@@ -39,6 +44,7 @@ const appRoutes: Routes = [
       appRoutes
     ),
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
   ],
   providers: [],

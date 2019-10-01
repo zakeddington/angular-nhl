@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { CONSTANTS } from '../../config/Constants';
 import * as moment from 'moment';
 import { ScheduleService } from '../../services/schedule.service';
@@ -37,6 +37,7 @@ export class ScheduleNavComponent implements OnInit {
 
   constructor(
     private scheduleService: ScheduleService,
+    private router: Router,
     private route: ActivatedRoute,
   ) {
     this.getScheduleStartDate();
@@ -94,7 +95,6 @@ export class ScheduleNavComponent implements OnInit {
   }
 
   onNavClick(e, dateObj) {
-    e.preventDefault();
     const curDateObj = dateObj;
     const curNavDates: Array<any> = this.navDates;
     const urlDate = curDateObj.day.format(CONSTANTS.momentOptions.apiFormat);
@@ -115,5 +115,6 @@ export class ScheduleNavComponent implements OnInit {
 
     this.setNavDates(dateObj);
     this.scheduleService.getScheduleGames(urlDate, urlDate);
+    this.router.navigate([this.routePath, urlDate]);
   }
 }

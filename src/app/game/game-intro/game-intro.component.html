@@ -1,14 +1,16 @@
 <div class="game-intro" *ngIf="data$ | async; let data; else loader">
-  <h2>{{data.title}}</h2>
-  <p>{{data.desc}}</p>
-  <div class="game-intro-media">
-    <ng-container *ngIf="data.isRecap; else poster">
-      <app-video-player [showVideo]="false" [poster]="data.recapPoster" [video]="data.recapVideo" [altText]="data.posterAltText"></app-video-player>
-    </ng-container>
-    <ng-template #poster>
-      <img [src]="data.poster" [alt]="data.posterAltText" />
-    </ng-template>
-  </div>
+  <ng-container *ngIf="!data.isError">
+    <h2>{{data.title}}</h2>
+    <p>{{data.desc}}</p>
+    <div class="game-intro-media">
+      <ng-container *ngIf="data.isRecap; else poster">
+        <app-video-player [showVideo]="false" [poster]="data.recapPoster" [video]="data.recapVideo" [altText]="data.posterAltText"></app-video-player>
+      </ng-container>
+      <ng-template #poster>
+        <img [src]="data.poster" [alt]="data.posterAltText" />
+      </ng-template>
+    </div>
+  </ng-container>
 </div>
 
 <ng-template #loader>

@@ -34,18 +34,39 @@ export class GameService {
   getGameDetail(gameId) {
     this.apiService.getGameDetail(gameId)
       .subscribe(
-        (data) => { this.processGameData(data); },
+        (data) => this.processGameData(data),
         (error) => console.error('getGameDetail error', error)
       );
   }
 
-  processGameData(data) {
-    this.getGameData(data);
-    this.getPeriodSummary(data);
-    this.getPlayerStats(data);
+  async processGameData(data) {
+    const errData = {
+      isError: true,
+    };
+
+    try {
+      await this.getGameData(data);
+    } catch (error) {
+      console.error('getGameData error', error);
+      this.gameData.next(errData);
+    }
+
+    try {
+      await this.getPeriodSummary(data);
+    } catch (error) {
+      console.error('getPeriodSummary error', error);
+      this.gamePeriodData.next(errData);
+    }
+
+    try {
+      await this.getPlayerStats(data);
+    } catch (error) {
+      console.error('getPlayerStats error', error);
+      this.gamePlayerData.next(errData);
+    }
   }
 
-  getGameData(data) {
+  async getGameData(data) {
     // console.log('processGameData', data);
     const periodGoals = data.liveData.linescore.periods;
     const shootoutGoals = data.liveData.linescore.shootoutInfo;
@@ -108,27 +129,36 @@ export class GameService {
 
   getPlayerStats(data) {
     // console.log('getPlayerStats', data);
+    const errData = {
+      isError: true,
+    };
     const awayPlayers = data.liveData.boxscore.teams.away.players;
     const homePlayers = data.liveData.boxscore.teams.home.players;
+    const awayStats = this.createPlayerData(awayPlayers);
+    const homeStats = this.createPlayerData(homePlayers);
     const results = {
       teams: [
         {
           id: data.gameData.teams.away.id,
           name: data.gameData.teams.away.name,
-          stats: this.createPlayerData(awayPlayers)
+          stats: awayStats,
         },
         {
           id: data.gameData.teams.home.id,
           name: data.gameData.teams.home.name,
-          stats: this.createPlayerData(homePlayers)
+          stats: homeStats,
         }
       ]
     };
 
     // console.log(awayPlayers, homePlayers);
-    // console.log(results);
+    // console.log('getPlayerStats', results);
 
-    this.gamePlayerData.next(results);
+    if (!awayStats && !homeStats) {
+      this.gamePlayerData.next(errData);
+    } else {
+      this.gamePlayerData.next(results);
+    }
   }
 
   createPlayerData(players) {
@@ -171,6 +201,10 @@ export class GameService {
         }
       }
     });
+
+    if (!forwards.length && !defense.length && !goalies.length) {
+      return null;
+    }
 
     forwards.sort((a, b) => a.number - b.number);
     defense.sort((a, b) => a.number - b.number);
@@ -391,14 +425,39 @@ export class GameService {
   }
 
   getGameContent(gameId) {
+    const errData = {
+      isError: true,
+    };
+
     this.apiService.getGameContent(gameId)
       .subscribe(
-        (data) => { this.processGameContent(data); },
-        (error) => console.error('getGameContent error', error)
+        async (data) => {
+          try {
+            await this.processGameContent(data);
+          } catch (error) {
+            console.error('processGameContent error', error);
+            this.gameContent.next(errData);
+          }
+
+          // const processData = new Promise((resolve) => {
+          //   resolve(this.processGameContent(data));
+          // });
+          //
+          // processData.then((results) => {
+          //   this.gameContent.next(results);
+          // }).catch((error) => {
+          //   console.error('processGameContent error', error);
+          //   this.gameContent.next(errData);
+          // });
+        },
+        (error) => {
+          console.error('getGameContent error', error);
+          this.gameContent.next(errData);
+        }
       );
   }
 
-  processGameContent(data) {
+  async processGameContent(data) {
     // console.log('processGameContent data', data);
     const previewData = data.editorial.preview.items[0];
     const recapData = data.editorial.recap.items[0];

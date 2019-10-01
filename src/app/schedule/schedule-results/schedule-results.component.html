@@ -2,7 +2,7 @@
   <ng-container *ngIf="data.length > 0; else noResults">
     <div class="schedule-results-group" *ngFor="let group of data">
       <h3>{{group.date}}</h3>
-      <ul class="schedule-results-games">
+      <ul class="schedule-results-games" [@listAnimation]="group.games">
         <li *ngFor="let game of group.games" [ngClass]="game.gameStatusClass">
           <a [routerLink]="[routePath, game.id]">
             <div class="schedule-results-game-status">{{game.gameStatus}}</div>

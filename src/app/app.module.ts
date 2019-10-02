@@ -1,4 +1,5 @@
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, RouteReuseStrategy } from '@angular/router';
+import { RouteReusableStrategy } from './route-reusable-strategy';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,17 +20,17 @@ const appRoutes: Routes = [
   {
     path: CONSTANTS.routePaths.schedule,
     component: ScheduleComponent,
-    data: { animRoute: 'schedule'}
+    data: { animRoute: 'schedule', reuse: true }
   },
   {
     path: CONSTANTS.routePaths.schedule + '/:id',
     component: ScheduleComponent,
-    data: { animRoute: 'schedule'}
+    data: { animRoute: 'schedule', reuse: true }
   },
   {
     path: CONSTANTS.routePaths.game + '/:id',
     component: GameComponent,
-    data: { animRoute: 'game'}
+    data: { animRoute: 'game' }
   }
 ];
 
@@ -47,7 +48,12 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: RouteReuseStrategy,
+      useClass: RouteReusableStrategy
+    },
+  ],
   bootstrap: [AppComponent]
 })
 

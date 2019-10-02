@@ -255,6 +255,9 @@ export class GameService {
   }
 
   getPeriodSummary(data) {
+    const errData = {
+      isError: true,
+    };
     const periods = data.liveData.linescore.periods;
     const scoringIds = data.liveData.plays.scoringPlays;
     const penaltyIds = data.liveData.plays.penaltyPlays;
@@ -366,7 +369,12 @@ export class GameService {
     }
 
     // console.log('periodPlays', periodPlays);
-    this.gamePeriodData.next(periodPlays);
+
+    if (periodPlays.length) {
+      this.gamePeriodData.next(periodPlays);
+    } else {
+      this.gamePeriodData.next(errData);
+    }
   }
 
   getShootoutSummary(data) {

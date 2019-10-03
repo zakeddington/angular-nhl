@@ -7,7 +7,7 @@ export const tabsTransition = trigger('tabsTransition', [
   state('false', style({
     opacity: 0,
   })),
-  transition('* <=> *', [
+  transition('false => true', [
     animate('0.5s ease-in-out')
   ]),
 ]);

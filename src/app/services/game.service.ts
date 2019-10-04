@@ -38,7 +38,12 @@ export class GameService {
     this.apiService.getGameDetail(gameId)
       .subscribe(
         (data) => this.processGameData(data),
-        (error) => console.error('getGameDetail error', error)
+        (error) => {
+          console.error('getGameDetail error', error);
+          this.gameData.next(this.noData);
+          this.gamePeriodData.next(this.noData);
+          this.gamePlayerData.next(this.noData);
+        }
       );
   }
 
@@ -122,7 +127,7 @@ export class GameService {
       boxscoreTeams,
     };
 
-    console.log('getGameData', results);
+    // console.log('getGameData', results);
 
     this.gameData.next(results);
   }
@@ -153,7 +158,7 @@ export class GameService {
       ]
     };
 
-    console.log('getPlayerStats', results);
+    // console.log('getPlayerStats', results);
 
     this.gamePlayerData.next(results);
   }
@@ -364,7 +369,7 @@ export class GameService {
       });
     }
 
-    console.log('getPeriodSummary', results);
+    // console.log('getPeriodSummary', results);
 
     if (results.periodPlays.length) {
       this.gamePeriodData.next(results.periodPlays);
@@ -496,7 +501,7 @@ export class GameService {
       recapPoster,
     };
 
-    console.log('processGameContent', results);
+    // console.log('processGameContent', results);
 
     this.gameContent.next(results);
   }

@@ -1,5 +1,9 @@
 <header class="game-header" *ngIf="data$ | async; let data; else loader">
-  <ng-container *ngIf="!data.showNoResults">
+  <ng-container *ngIf="data.showNoResults; else content">
+    <h2 class="error-msg">No game details available.</h2>
+  </ng-container>
+
+  <ng-template #content>
     <div class="col game-header-date-info">
       <span class="game-header-date">{{data.date}}</span>
       <span *ngIf="data.isPreview" class="game-header-time">{{data.gameStatus}}</span>
@@ -22,7 +26,7 @@
       </div>
       <div *ngIf="!data.isPreview" class="game-header-score">{{data.teams.home.score}}</div>
     </div>
-  </ng-container>
+  </ng-template>
 </header>
 
 <ng-template #loader>

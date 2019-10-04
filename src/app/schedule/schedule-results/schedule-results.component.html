@@ -1,34 +1,37 @@
-<div class="schedule-results" *ngIf="data$ | async; let data; else loader">
-  <ng-container *ngIf="data.length > 0; else noResults">
-    <div class="schedule-results-group" *ngFor="let group of data">
-      <h3>{{group.date}}</h3>
-      <ul class="schedule-results-games" [@listAnimation]="group.games">
-        <li *ngFor="let game of group.games" [ngClass]="game.gameStatusClass">
-          <a [routerLink]="[routePath, game.id]">
-            <div class="schedule-results-game-status">{{game.gameStatus}}</div>
-            <div class="schedule-results-team away">
-              <app-icon [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="game.teams.away.id"></app-icon>
-              <span class="schedule-results-name">{{game.teams.away.name}}
-                <span class="schedule-results-record">({{game.teams.away.record}})</span>
-                </span>
-              <span class="schedule-results-score">{{game.teams.away.score}}</span>
-            </div>
-            <div class="schedule-results-team home">
-              <app-icon [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="game.teams.home.id"></app-icon>
-              <span class="schedule-results-name">{{game.teams.home.name}}
-                <span class="schedule-results-record">({{game.teams.home.record}})</span>
-                </span>
-              <span class="schedule-results-score">{{game.teams.home.score}}</span>
-            </div>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </ng-container>
-  <ng-template #noResults>
+<ng-container *ngIf="data$ | async; let data; else loader">
+  <ng-container *ngIf="data.showNoResults || !data.schedule.length; else content">
     <h2>There are no games scheduled on this date.</h2>
+  </ng-container>
+
+  <ng-template #content>
+    <div class="schedule-results">
+      <div class="schedule-results-group" *ngFor="let group of data.schedule">
+        <h3>{{group.date}}</h3>
+        <ul class="schedule-results-games" [@listAnimation]="group.games">
+          <li *ngFor="let game of group.games" [ngClass]="game.gameStatusClass">
+            <a [routerLink]="[routePath, game.id]">
+              <div class="schedule-results-game-status">{{game.gameStatus}}</div>
+              <div class="schedule-results-team away">
+                <app-icon [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="game.teams.away.id"></app-icon>
+                <span class="schedule-results-name">{{game.teams.away.name}}
+                  <span class="schedule-results-record">({{game.teams.away.record}})</span>
+                  </span>
+                <span class="schedule-results-score">{{game.teams.away.score}}</span>
+              </div>
+              <div class="schedule-results-team home">
+                <app-icon [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="game.teams.home.id"></app-icon>
+                <span class="schedule-results-name">{{game.teams.home.name}}
+                  <span class="schedule-results-record">({{game.teams.home.record}})</span>
+                  </span>
+                <span class="schedule-results-score">{{game.teams.home.score}}</span>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
   </ng-template>
-</div>
+</ng-container>
 
 <ng-template #loader>
   <app-loader></app-loader>

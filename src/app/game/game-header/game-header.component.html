@@ -1,5 +1,5 @@
 <header class="game-header" *ngIf="data$ | async; let data; else loader">
-  <ng-container *ngIf="!data.isError">
+  <ng-container *ngIf="!data.showNoResults">
     <div class="col game-header-date-info">
       <span class="game-header-date">{{data.date}}</span>
       <span *ngIf="data.isPreview" class="game-header-time">{{data.gameStatus}}</span>

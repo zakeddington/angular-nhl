@@ -12,6 +12,9 @@ export class GameService {
   private gamePeriodData = new Subject<any>();
   private gamePlayerData = new Subject<any>();
   private gameContent = new Subject<any>();
+  private noData = {
+    showNoResults: true,
+  };
 
   constructor(private apiService: ApiService) { }
 
@@ -40,29 +43,25 @@ export class GameService {
   }
 
   async processGameData(data) {
-    const errData = {
-      isError: true,
-    };
-
     try {
       await this.getGameData(data);
     } catch (error) {
       console.error('getGameData error', error);
-      this.gameData.next(errData);
+      this.gameData.next(this.noData);
     }
 
     try {
       await this.getPeriodSummary(data);
     } catch (error) {
       console.error('getPeriodSummary error', error);
-      this.gamePeriodData.next(errData);
+      this.gamePeriodData.next(this.noData);
     }
 
     try {
       await this.getPlayerStats(data);
     } catch (error) {
       console.error('getPlayerStats error', error);
-      this.gamePlayerData.next(errData);
+      this.gamePlayerData.next(this.noData);
     }
   }
 
@@ -100,6 +99,7 @@ export class GameService {
     }
 
     const results = {
+      showNoResults: false,
       isPreview,
       date: curDate,
       gameStatus: curStatus,
@@ -122,21 +122,23 @@ export class GameService {
       boxscoreTeams,
     };
 
-    // console.log('getGameData', results);
+    console.log('getGameData', results);
 
     this.gameData.next(results);
   }
 
   getPlayerStats(data) {
     // console.log('getPlayerStats', data);
-    const errData = {
-      isError: true,
-    };
     const awayPlayers = data.liveData.boxscore.teams.away.players;
     const homePlayers = data.liveData.boxscore.teams.home.players;
     const awayStats = this.createPlayerData(awayPlayers);
     const homeStats = this.createPlayerData(homePlayers);
+    const gameStatus = UTILS.getGameStatus(data.liveData.linescore);
+    const isPreview = !gameStatus.length;
+    const showNoResults = (!awayStats && !homeStats);
     const results = {
+      showNoResults,
+      isPreview,
       teams: [
         {
           id: data.gameData.teams.away.id,
@@ -151,14 +153,9 @@ export class GameService {
       ]
     };
 
-    // console.log(awayPlayers, homePlayers);
-    // console.log('getPlayerStats', results);
+    console.log('getPlayerStats', results);
 
-    if (!awayStats && !homeStats) {
-      this.gamePlayerData.next(errData);
-    } else {
-      this.gamePlayerData.next(results);
-    }
+    this.gamePlayerData.next(results);
   }
 
   createPlayerData(players) {
@@ -255,9 +252,6 @@ export class GameService {
   }
 
   getPeriodSummary(data) {
-    const errData = {
-      isError: true,
-    };
     const periods = data.liveData.linescore.periods;
     const scoringIds = data.liveData.plays.scoringPlays;
     const penaltyIds = data.liveData.plays.penaltyPlays;
@@ -265,13 +259,15 @@ export class GameService {
     const hasShootout = data.liveData.linescore.hasShootout;
     const teamAwayId = data.gameData.teams.away.id;
     const teamHomeId = data.gameData.teams.home.id;
-
-    const periodPlays = [];
+    const results = {
+      showNoResults: false,
+      periodPlays: [],
+    };
 
     periods.forEach((period) => {
       const periodName = period.ordinalNum === 'OT' ? 'Overtime' : `${period.ordinalNum} Period`;
 
-      periodPlays.push({
+      results.periodPlays.push({
         periodName,
         goals: [],
         penalties: [],
@@ -326,7 +322,7 @@ export class GameService {
           assists: curAssists
         };
 
-        periodPlays[curPeriodIndex].goals.push(playDetail);
+        results.periodPlays[curPeriodIndex].goals.push(playDetail);
       }
     });
 
@@ -334,7 +330,7 @@ export class GameService {
       const curPlay = allPlays[id];
       const curPeriodIndex = curPlay.about.period - 1;
       const penaltyTeamId = curPlay.team.id;
-      let curPenaltyOn;
+      let curPenaltyOn = {};
 
       if (curPeriodIndex < periods.length) {
         curPlay.players.forEach((player) => {
@@ -354,26 +350,26 @@ export class GameService {
           penaltyMin: curPlay.result.penaltyMinutes,
         };
 
-        periodPlays[curPeriodIndex].penalties.push(playDetail);
+        results.periodPlays[curPeriodIndex].penalties.push(playDetail);
       }
     });
 
     if (hasShootout) {
       const shootoutPlays = this.getShootoutSummary(data);
-      periodPlays.push({
+      results.periodPlays.push({
         periodName: 'Shootout',
         goals: [],
         penalties: [],
-        shootoutPlays
+        shootoutPlays,
       });
     }
 
-    // console.log('periodPlays', periodPlays);
+    console.log('getPeriodSummary', results);
 
-    if (periodPlays.length) {
-      this.gamePeriodData.next(periodPlays);
+    if (results.periodPlays.length) {
+      this.gamePeriodData.next(results.periodPlays);
     } else {
-      this.gamePeriodData.next(errData);
+      this.gamePeriodData.next(this.noData);
     }
   }
 
@@ -381,7 +377,6 @@ export class GameService {
     const playsByPeriod = data.liveData.plays.playsByPeriod;
     const playIds = playsByPeriod[4].plays;
     const allPlays = data.liveData.plays.allPlays;
-
     const shootoutPlays = [];
 
     playIds.forEach((id) => {
@@ -433,10 +428,6 @@ export class GameService {
   }
 
   getGameContent(gameId) {
-    const errData = {
-      isError: true,
-    };
-
     this.apiService.getGameContent(gameId)
       .subscribe(
         async (data) => {
@@ -444,23 +435,12 @@ export class GameService {
             await this.processGameContent(data);
           } catch (error) {
             console.error('processGameContent error', error);
-            this.gameContent.next(errData);
+            this.gameContent.next(this.noData);
           }
-
-          // const processData = new Promise((resolve) => {
-          //   resolve(this.processGameContent(data));
-          // });
-          //
-          // processData.then((results) => {
-          //   this.gameContent.next(results);
-          // }).catch((error) => {
-          //   console.error('processGameContent error', error);
-          //   this.gameContent.next(errData);
-          // });
         },
         (error) => {
           console.error('getGameContent error', error);
-          this.gameContent.next(errData);
+          this.gameContent.next(this.noData);
         }
       );
   }
@@ -506,6 +486,7 @@ export class GameService {
     }
 
     const results = {
+      showNoResults: false,
       isRecap,
       title,
       desc,
@@ -515,7 +496,7 @@ export class GameService {
       recapPoster,
     };
 
-    // console.log('getGameContent', results);
+    console.log('processGameContent', results);
 
     this.gameContent.next(results);
   }

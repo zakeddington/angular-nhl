@@ -9,6 +9,9 @@ import { CONSTANTS } from '../config/Constants';
 })
 export class ScheduleService {
   private scheduleData = new Subject<any>();
+  private noData = {
+    showNoResults: true,
+  };
 
   constructor(private apiService: ApiService) { }
 
@@ -22,14 +25,28 @@ export class ScheduleService {
     ];
     this.apiService.getSchedule(dateFrom, dateTo, params)
       .subscribe(
-        (data) => { this.processScheduleData(data); },
-        (error) => console.error('getScheduleGames error', error)
+        async (data) => {
+          try {
+            await this.processScheduleData(data);
+          } catch (error) {
+            console.error('processScheduleData error', error);
+            this.scheduleData.next(this.noData);
+          }
+        },
+        (error) => {
+          console.error('getSchedule error', error);
+          this.scheduleData.next(this.noData);
+        }
       );
   }
 
-  processScheduleData(data) {
+  async processScheduleData(data) {
+    // console.log('processScheduleData', data);
     const { dates } = data;
-    const results = [];
+    const results = {
+      showNoResults: false,
+      schedule: [],
+    };
 
     dates.forEach((date) => {
       const curDate = new Date(date.date.replace(/-/g, '/'));
@@ -90,14 +107,10 @@ export class ScheduleService {
         curResults.games.push(gameDetail);
       });
 
-      results.push(curResults);
+      results.schedule.push(curResults);
     });
 
     // console.log('ScheduleService results', results);
-
-    if (!dates) {
-      throw new Error(`ScheduleService getScheduleGames failed, dates not returned`);
-    }
 
     this.scheduleData.next(results);
   }

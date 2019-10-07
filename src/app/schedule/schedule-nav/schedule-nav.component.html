@@ -7,7 +7,7 @@
   </button>
   <ul class="schedule-nav-items">
     <li *ngFor="let navDate of navDates">
-      <a [routerLink]="[routePath, navDate.urlDate]" class="schedule-nav-item" [class.is-active]="navDate.isActive ? 'is-active' : ''" (click)="onNavClick($event, navDate)">
+      <a [routerLink]="[routePath, navDate.urlDate]" class="schedule-nav-item" [class.is-active]="navDate.isActive ? 'is-active' : ''">
         {{navDate.displayDate}}
       </a>
     </li>

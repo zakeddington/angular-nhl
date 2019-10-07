@@ -20,12 +20,14 @@ const appRoutes: Routes = [
   {
     path: CONSTANTS.routePaths.schedule,
     component: ScheduleComponent,
-    data: { animRoute: 'schedule', reuse: true }
+    data: { animRoute: 'schedule', reuse: true },
+    runGuardsAndResolvers: 'always',
   },
   {
     path: CONSTANTS.routePaths.schedule + '/:id',
     component: ScheduleComponent,
-    data: { animRoute: 'schedule', reuse: true }
+    data: { animRoute: 'schedule', reuse: true },
+    runGuardsAndResolvers: 'always',
   },
   {
     path: CONSTANTS.routePaths.game + '/:id',
@@ -42,7 +44,10 @@ const appRoutes: Routes = [
     ScheduleModule,
     GameModule,
     RouterModule.forRoot(
-      appRoutes
+      appRoutes,
+      {
+        onSameUrlNavigation: 'reload',
+      }
     ),
     BrowserModule,
     BrowserAnimationsModule,

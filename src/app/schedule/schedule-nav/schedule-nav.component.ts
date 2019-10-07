@@ -1,120 +1,126 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnDestroy } from '@angular/core';
+import {Router, ActivatedRoute, ParamMap, NavigationEnd} from '@angular/router';
 import { CONSTANTS } from '../../config/Constants';
 import * as moment from 'moment';
 import { ScheduleService } from '../../services/schedule.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-schedule-nav',
   templateUrl: './schedule-nav.component.html',
   styleUrls: ['./schedule-nav.component.scss']
 })
-export class ScheduleNavComponent implements OnInit {
-  selectedDate: object;
-  navDates: object[];
-  startDate: object;
-  apiStartDate: string;
+export class ScheduleNavComponent implements OnDestroy {
+  curRouterDate: string;
+  navDates: Array<any>;
   iconBaseUrl: string;
   routePath: string;
-
-  getScheduleStartDate() {
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      this.setStartDate(params.get('id'));
-    });
-  }
-
-  setStartDate(date) {
-    const dateFormat = CONSTANTS.momentOptions.apiFormat;
-    let startDate = moment();
-
-    if (date) {
-      startDate = moment(date, dateFormat);
-    }
-
-    this.startDate = startDate;
-    this.apiStartDate = startDate.format(CONSTANTS.momentOptions.apiFormat);
-  }
+  routerSubscription: Subscription = new Subscription();
 
   constructor(
     private scheduleService: ScheduleService,
     private router: Router,
     private route: ActivatedRoute,
   ) {
-    this.getScheduleStartDate();
+    this.onRouterEvent();
+    this.getRouterDate();
     this.iconBaseUrl = CONSTANTS.imgUrl.icon.base;
     this.routePath = '/' + CONSTANTS.routePaths.schedule;
   }
 
-  ngOnInit() {
-    this.setNavDates(this.startDate);
-    this.scheduleService.getScheduleGames(this.apiStartDate, this.apiStartDate);
+  onRouterEvent() {
+    this.routerSubscription = this.router.events.subscribe((e) => {
+      if (e instanceof NavigationEnd) {
+        this.initialize();
+      }
+    });
   }
 
-  setNavDates(dateObj) {
-    const curDay = dateObj;
+  getRouterDate() {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      const routerDate = params.get('id');
+      this.curRouterDate = routerDate ? routerDate : moment().format(CONSTANTS.momentOptions.apiFormat);
+    });
+  }
 
+  initialize() {
+    this.checkForStartDateInNav();
+    this.scheduleService.getScheduleGames(this.curRouterDate, this.curRouterDate);
+  }
+
+  checkForStartDateInNav() {
+    let isInNav = false;
+
+    if (this.navDates) {
+      if (this.navDates.filter(navDate => (navDate.urlDate === this.curRouterDate)).length) {
+        isInNav = true;
+      }
+    }
+
+    if (isInNav) {
+      this.updateNavSelectedState();
+    } else {
+      this.createNavDates();
+    }
+  }
+
+  createNavDates() {
+    const curDay = this.curRouterDate ? moment(this.curRouterDate) : moment();
     let navDates = [
       {
-        day: curDay.clone().subtract(3, 'days'),
+        dateObj: curDay.clone().subtract(3, 'days'),
         isActive: false,
       },
       {
-        day: curDay.clone().subtract(2, 'days'),
+        dateObj: curDay.clone().subtract(2, 'days'),
         isActive: false,
       },
       {
-        day: curDay.clone().subtract(1, 'days'),
+        dateObj: curDay.clone().subtract(1, 'days'),
         isActive: false,
       },
       {
-        day: curDay,
+        dateObj: curDay,
         isActive: true,
       },
       {
-        day: curDay.clone().add(1, 'days'),
+        dateObj: curDay.clone().add(1, 'days'),
         isActive: false,
       },
       {
-        day: curDay.clone().add(2, 'days'),
+        dateObj: curDay.clone().add(2, 'days'),
         isActive: false,
       },
       {
-        day: curDay.clone().add(3, 'days'),
+        dateObj: curDay.clone().add(3, 'days'),
         isActive: false,
       }
     ];
 
     navDates = navDates.map(item => ({
       ...item,
-      displayDate: item.day.format(CONSTANTS.momentOptions.displayFormat),
-      urlDate: item.day.format(CONSTANTS.momentOptions.apiFormat),
+      displayDate: item.dateObj.format(CONSTANTS.momentOptions.displayFormat),
+      urlDate: item.dateObj.format(CONSTANTS.momentOptions.apiFormat),
     }));
 
-    this.selectedDate = curDay;
     this.navDates = navDates;
   }
 
-  onNavClick(e, dateObj) {
-    const curDateObj = dateObj;
+  updateNavSelectedState() {
     const curNavDates: Array<any> = this.navDates;
-    const urlDate = curDateObj.day.format(CONSTANTS.momentOptions.apiFormat);
 
     curNavDates.forEach((navDate) => {
-      navDate.isActive = curDateObj.day === navDate.day;
+      navDate.isActive = this.curRouterDate === navDate.urlDate;
     });
-
-    this.selectedDate = curDateObj.day;
-    this.navDates = curNavDates;
-
-    this.scheduleService.getScheduleGames(urlDate, urlDate);
   }
 
   onDateSelected(e) {
     const dateObj = moment(e.value);
     const urlDate = dateObj.format(CONSTANTS.momentOptions.apiFormat);
-
-    this.setNavDates(dateObj);
-    this.scheduleService.getScheduleGames(urlDate, urlDate);
     this.router.navigate([this.routePath, urlDate]);
+  }
+
+  ngOnDestroy() {
+    this.routerSubscription.unsubscribe();
   }
 }

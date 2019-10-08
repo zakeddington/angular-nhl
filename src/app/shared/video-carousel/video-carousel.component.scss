@@ -1,0 +1,74 @@
+@import 'config/variables';
+
+.video-carousel {
+
+  &--player {
+    background: $color-blue;
+    display: block;
+    height: 0;
+    padding-top: 56.25%;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  ::ng-deep .video-trigger,
+  ::ng-deep video {
+    border: 1px solid $color-grey-med;
+    display: block;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  &--thumbs {
+    background: $color-grey-light;
+    border: 1px solid $color-grey-med;
+    display: block;
+    overflow: scroll;
+    white-space: nowrap;
+    width: 100%;
+
+    &-item {
+      background: none;
+      border: none;
+      color: $color-grey-dark;
+      display: inline-block;
+      font-size: 0.75rem;
+      height: 100%;
+      padding: 1rem;
+      text-align: left;
+      width: 24%;
+    }
+
+    &-poster {
+      border: 1px solid $color-grey-med;
+      display: block;
+      margin-bottom: 0.5rem;
+      overflow: hidden;
+
+      img {
+        display: block;
+        transition: all $anim-speed-fast $anim-ease;
+      }
+
+      &:hover,
+      &:focus {
+        border-color: $color-grey-dark;
+
+        img {
+          transform: scale(1.1);
+        }
+      }
+
+      .is-active & {
+        border-color: $color-grey-dark;
+      }
+    }
+
+    &-title {
+      font-weight: 600;
+    }
+  }
+}

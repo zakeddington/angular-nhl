@@ -48,6 +48,7 @@ export class GameService {
   }
 
   async processGameData(data) {
+    // console.log('processGameData', data);
     try {
       await this.getGameData(data);
     } catch (error) {
@@ -71,7 +72,6 @@ export class GameService {
   }
 
   async getGameData(data) {
-    // console.log('processGameData', data);
     const periodGoals = data.liveData.linescore.periods;
     const shootoutGoals = data.liveData.linescore.shootoutInfo;
     const boxscoreTeams = data.liveData.boxscore.teams;
@@ -133,7 +133,6 @@ export class GameService {
   }
 
   getPlayerStats(data) {
-    // console.log('getPlayerStats', data);
     const awayPlayers = data.liveData.boxscore.teams.away.players;
     const homePlayers = data.liveData.boxscore.teams.home.players;
     const awayStats = this.createPlayerData(awayPlayers);
@@ -286,6 +285,8 @@ export class GameService {
       const scoringTeamId = curPlay.team.id;
       let curScorer = {};
       const curAssists = [];
+
+      // console.log('curPlay', curPlay);
 
       if (curPeriodIndex < periods.length) {
         curPlay.players.forEach((player) => {
@@ -451,18 +452,16 @@ export class GameService {
   }
 
   async processGameContent(data) {
-    // console.log('processGameContent data', data);
+    console.log('processGameContent data', data);
     const previewData = data.editorial.preview.items[0];
     const recapData = data.editorial.recap.items[0];
     const mediaData = data.media.epg;
-
-    let isRecap = false;
+    const highlights = data.highlights.gameCenter.items;
     let title = '';
     let desc = '';
     let poster = '';
     let posterAltText = '';
-    let recapVideo = '';
-    let recapPoster = '';
+    const videos = [];
 
     if (previewData) {
       title = previewData.headline;
@@ -472,37 +471,76 @@ export class GameService {
     }
 
     if (recapData) {
-      isRecap = true;
       title = recapData.headline;
       desc = recapData.seoDescription;
+    }
 
+    if (mediaData) {
       mediaData.forEach((item) => {
-        if (item.title === 'Recap') {
-          const videos = item.items[0].playbacks;
-          recapPoster = item.items[0].image.cuts['1136x640'].src;
+        const isRecapVideo = item.title === 'Recap';
+        const isCondensedGame = item.title === 'Extended Highlights';
 
-          videos.forEach((video) => {
-            if (video.name === 'FLASH_1800K_960X540') {
-              recapVideo = video.url;
+        if (isRecapVideo || isCondensedGame) {
+          if (item.items.length) {
+            const curItem = this.createVideoData(item.items[0]);
+
+            if (isRecapVideo) {
+              curItem.title = 'Game Recap';
+              videos.splice(0, 0, curItem);
+            } else {
+              curItem.title = 'Condensed Game';
+              videos.push(curItem);
             }
-          });
+          }
         }
+      });
+    }
+
+    if (highlights) {
+      highlights.forEach((item) => {
+        const curItem = this.createVideoData(item);
+        videos.push(curItem);
       });
     }
 
     const results = {
       showNoResults: false,
-      isRecap,
       title,
       desc,
       poster,
       posterAltText,
-      recapVideo,
-      recapPoster,
+      videos,
     };
 
-    // console.log('processGameContent', results);
+    console.log('processGameContent', results);
 
     this.gameContent.next(results);
+  }
+
+  createVideoData(data) {
+    // console.log(data);
+    const title = data.title;
+    const playbacks = data.playbacks;
+    const duration = data.duration;
+    const thumb = data.image.cuts['640x360'].src;
+    const poster = data.image.cuts['1136x640'].src;
+    const posterAltText = data.image.altText;
+    let url = '';
+
+    playbacks.forEach((video) => {
+      if (video.name === 'FLASH_1800K_960X540') {
+        url = video.url;
+      }
+    });
+
+    return {
+      title,
+      duration,
+      url,
+      poster,
+      thumb,
+      posterAltText,
+      showVideoPlayer: false,
+    };
   }
 }

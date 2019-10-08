@@ -7,7 +7,7 @@ import { TabsContentComponent } from './tabs-content.component';
     <div class="tabs {{tabsClass}}">
       <ul class="tabs-nav">
         <li *ngFor="let tab of tabs" class="tabs-nav-item">
-          <button class="tabs-nav-link" (click)="selectTab(tab)" (mousedown)="onMousedown($event)" [class.active]="tab.active">
+          <button class="tabs-nav-link" (click)="selectTab(tab)" (mousedown)="onMousedown($event)" [class.is-active]="tab.active">
             <ng-container *ngIf="tab.iconBaseUrl">
               <app-icon [iconClass]="tab.iconClass" [iconBaseUrl]="tab.iconBaseUrl" [iconId]="tab.iconId"></app-icon>
             </ng-container>

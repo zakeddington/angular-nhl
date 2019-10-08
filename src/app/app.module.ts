@@ -15,24 +15,32 @@ const appRoutes: Routes = [
   {
     path: '',
     redirectTo: '/' + CONSTANTS.routePaths.schedule,
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: CONSTANTS.routePaths.schedule,
     component: ScheduleComponent,
-    data: { animRoute: 'schedule', reuse: true },
+    data: {
+      animRoute: 'schedule',
+      reuse: true,
+    },
     runGuardsAndResolvers: 'always',
   },
   {
     path: CONSTANTS.routePaths.schedule + '/:id',
     component: ScheduleComponent,
-    data: { animRoute: 'schedule', reuse: true },
+    data: {
+      animRoute: 'schedule',
+      reuse: true,
+    },
     runGuardsAndResolvers: 'always',
   },
   {
     path: CONSTANTS.routePaths.game + '/:id',
     component: GameComponent,
-    data: { animRoute: 'game' }
+    data: {
+      animRoute: 'game',
+    }
   }
 ];
 
@@ -56,10 +64,12 @@ const appRoutes: Routes = [
   providers: [
     {
       provide: RouteReuseStrategy,
-      useClass: RouteReusableStrategy
+      useClass: RouteReusableStrategy,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+  ]
 })
 
 export class AppModule {}

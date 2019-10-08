@@ -6,6 +6,7 @@ import { PlayerPhotoComponent } from './player-photo/player-photo.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { TabsContentComponent } from './tabs/tabs-content.component';
 import { LoaderComponent } from './loader/loader.component';
+import { VideoCarouselComponent } from './video-carousel/video-carousel.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { LoaderComponent } from './loader/loader.component';
     TabsComponent,
     TabsContentComponent,
     LoaderComponent,
+    VideoCarouselComponent,
   ],
   imports: [
     CommonModule,
@@ -26,6 +28,7 @@ import { LoaderComponent } from './loader/loader.component';
     TabsComponent,
     TabsContentComponent,
     LoaderComponent,
+    VideoCarouselComponent,
   ]
 })
 export class SharedModule { }

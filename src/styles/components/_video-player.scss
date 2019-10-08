@@ -5,9 +5,19 @@
 .video-trigger {
 	background: none;
 	border: none;
-	padding: 0;
+  display: block;
+  overflow: hidden;
+	padding: 56.25% 0 0;
 	position: relative;
 	width: 100%;
+
+  img {
+    height: auto;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
 
 	.svg-icon {
 		display: block;

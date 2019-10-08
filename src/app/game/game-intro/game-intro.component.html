@@ -3,8 +3,8 @@
     <h2 *ngIf="data.title">{{data.title}}</h2>
     <p *ngIf="data.desc">{{data.desc}}</p>
     <div class="game-intro-media">
-      <ng-container *ngIf="data.isRecap; else poster">
-        <app-video-player [showVideo]="false" [poster]="data.recapPoster" [video]="data.recapVideo" [altText]="data.posterAltText"></app-video-player>
+      <ng-container *ngIf="data.videos.length > 0; else poster">
+        <app-video-carousel [data]="data"></app-video-carousel>
       </ng-container>
       <ng-template #poster>
         <img *ngIf="data.poster" [src]="data.poster" [alt]="data.posterAltText" />

@@ -13,6 +13,7 @@ import { videoTransition } from './video-carousel.animations';
         <button class="video-carousel--thumbs-item" [class.is-active]="video.active" (click)="selectVideo(video)" (mousedown)="onMousedown($event)" *ngFor="let video of data.videos">
           <div class="video-carousel--thumbs-poster">
             <img [src]="video.thumb" [alt]="video.posterAltText" />
+            <app-icon iconClass="video-carousel--thumbs-icon" iconId="play-circle-filled"></app-icon>
           </div>
           <div class="video-carousel--thumbs-title">
             {{video.title}}

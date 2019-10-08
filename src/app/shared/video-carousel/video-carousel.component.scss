@@ -3,7 +3,6 @@
 .video-carousel {
 
   &--player {
-    background: $color-blue;
     display: block;
     height: 0;
     padding-top: 56.25%;
@@ -34,12 +33,28 @@
       background: none;
       border: none;
       color: $color-grey-dark;
+      cursor: pointer;
       display: inline-block;
       font-size: 0.75rem;
       height: 100%;
       padding: 1rem;
       text-align: left;
       width: 24%;
+
+      &.is-active {
+        cursor: default;
+        
+        ::ng-deep .svg-icon {
+          display: none;
+        }
+      }
+
+      &:hover,
+      &:focus {
+        ::ng-deep .svg-icon {
+          opacity: 1;
+        }
+      }
     }
 
     &-poster {
@@ -47,10 +62,13 @@
       display: block;
       margin-bottom: 0.5rem;
       overflow: hidden;
+      position: relative;
 
       img {
         display: block;
+        position: relative;
         transition: all $anim-speed-fast $anim-ease;
+        z-index: $z-index-default;
       }
 
       &:hover,
@@ -58,13 +76,45 @@
         border-color: $color-grey-dark;
 
         img {
-          transform: scale(1.1);
+          transform: scale(1.05);
+
+          .is-active & {
+            transform: none;
+          }
         }
       }
 
       .is-active & {
         border-color: $color-grey-dark;
+        outline: 3px solid $color-grey-dark;
+        overflow: visible;
+
+        &:before {
+          border-bottom: 15px solid $color-grey-dark;
+          border-left: 20px solid transparent;
+          border-right: 20px solid transparent;
+          content: '';
+          height: 0;
+          left: 50%;
+          position: absolute;
+          top: 0;
+          transform: translate(-50%, -100%);
+          width: 0;
+        }
       }
+    }
+
+    ::ng-deep .svg-icon {
+      display: block;
+      fill: $color-white;
+      height: 5em;
+      left: 50%;
+      opacity: 0.9;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 5em;
+      z-index: $z-index-default;
     }
 
     &-title {

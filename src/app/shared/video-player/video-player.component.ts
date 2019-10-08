@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-video-player',
@@ -10,10 +10,15 @@ export class VideoPlayerComponent {
   @Input() altText: string;
   @Input() isAutoPlay: boolean;
   @Input() showVideoPlayer: boolean;
+  @Output() videoPlayerCallback = new EventEmitter<object>();
 
   constructor() { }
 
   onVideoTriggerClick() {
     this.showVideoPlayer = true;
+  }
+
+  onVideoEvent(e) {
+    this.videoPlayerCallback.emit(e);
   }
 }

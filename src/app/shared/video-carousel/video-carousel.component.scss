@@ -3,6 +3,7 @@
 .video-carousel {
 
   &--player {
+    background: $color-grey-dark;
     display: block;
     height: 0;
     padding-top: 56.25%;
@@ -13,8 +14,10 @@
 
   ::ng-deep .video-trigger,
   ::ng-deep video {
+    background: $color-grey-dark;
     border: 1px solid $color-grey-med;
     display: block;
+    height: 100%;
     left: 0;
     position: absolute;
     top: 0;

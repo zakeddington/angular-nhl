@@ -5,7 +5,10 @@
 <ng-template #showPoster>
   <button class="video-trigger" (click)="onVideoTriggerClick()">
     <img [src]="poster" [alt]="altText" />
-    <app-icon iconId="play-circle-filled"></app-icon>
+    <app-icon iconClass="video-play-icon" iconId="play-circle-filled"></app-icon>
+    <span class="video-title" *ngIf="title">
+      {{title}}<span *ngIf="duration"> [{{duration}}]</span>
+    </span>
   </button>
 </ng-template>
 

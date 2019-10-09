@@ -8,6 +8,8 @@ export class VideoPlayerComponent {
   @Input() poster: string;
   @Input() video: string;
   @Input() altText: string;
+  @Input() title: string;
+  @Input() duration: string;
   @Input() isAutoPlay: boolean;
   @Input() showVideoPlayer: boolean;
   @Output() videoPlayerCallback = new EventEmitter<object>();

@@ -484,11 +484,11 @@ export class GameService {
           if (item.items.length) {
             const curItem = this.createVideoData(item.items[0]);
 
-            if (isRecapVideo) {
-              curItem.title = 'Game Recap';
+            if (isCondensedGame) {
+              curItem.title = 'Condensed Game';
               videos.splice(0, 0, curItem);
             } else {
-              curItem.title = 'Condensed Game';
+              curItem.title = 'Game Recap';
               videos.push(curItem);
             }
           }

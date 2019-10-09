@@ -6,9 +6,9 @@
     background: $color-grey-dark;
     display: block;
     height: 0;
+    overflow: hidden;
     padding-top: 56.25%;
     position: relative;
-    overflow: hidden;
     width: 100%;
   }
 
@@ -27,14 +27,45 @@
   &--thumbs {
     background: $color-grey-light;
     border: 1px solid $color-grey-med;
-    display: block;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     overflow: scroll;
     white-space: nowrap;
     width: 100%;
 
     &-item {
+      min-width: 24%;
+      width: 24%;
+
+      @media (max-width: $breakpoint-mobile-max) {
+        min-width: 45%;
+        width: 45%;
+      }
+
+      &.is-active {
+        background: $color-grey-med;
+        border-left: 1px solid rgba($color-black, 0.1);
+        border-right: 1px solid rgba($color-black, 0.1);
+        cursor: default;
+
+        &:first-child {
+          border-left: none;
+        }
+
+        &:last-child {
+          border-right: none;
+        }
+
+        ::ng-deep .video-play-icon {
+          display: none;
+        }
+      }
+    }
+
+    &-trigger {
       background: none;
-      border: none;
+      border: 1px solid transparent;
       color: $color-grey-dark;
       cursor: pointer;
       display: inline-block;
@@ -42,21 +73,11 @@
       height: 100%;
       padding: 1rem;
       text-align: left;
-      width: 24%;
+      white-space: normal;
+      width: 100%;
 
-      &.is-active {
+      .is-active & {
         cursor: default;
-
-        ::ng-deep .svg-icon {
-          display: none;
-        }
-      }
-
-      &:hover,
-      &:focus {
-        ::ng-deep .svg-icon {
-          opacity: 1;
-        }
       }
     }
 
@@ -88,12 +109,12 @@
       }
 
       .is-active & {
-        border-color: $color-grey-dark;
-        outline: 3px solid $color-grey-dark;
+        border-color: $color-white;
         overflow: visible;
+        outline: 3px solid $color-white;
 
         &:before {
-          border-bottom: 15px solid $color-grey-dark;
+          border-bottom: 15px solid $color-white;
           border-left: 20px solid transparent;
           border-right: 20px solid transparent;
           content: '';
@@ -107,17 +128,15 @@
       }
     }
 
-    ::ng-deep .svg-icon {
-      display: block;
-      fill: $color-white;
-      height: 5em;
-      left: 50%;
-      opacity: 0.9;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      width: 5em;
+    ::ng-deep .video-play-icon {
+      height: 4rem;
+      width: 4rem;
       z-index: $z-index-default;
+
+      @media (max-width: $breakpoint-mobile-max) {
+        height: 3rem;
+        width: 3rem;
+      }
     }
 
     &-title {

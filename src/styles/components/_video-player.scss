@@ -19,32 +19,35 @@
     width: 100%;
   }
 
-	.svg-icon {
-		display: block;
-		fill: $color-white;
-		height: 10em;
-		left: 50%;
-		opacity: 0.9;
-		position: absolute;
-		top: 50%;
-		transform: translate(-50%, -50%);
-		width: 10em;
-
-		@media (min-width: $breakpoint-tablet-min) and (max-width: $breakpoint-tablet-max) {
-			height: 8em;
-			width: 8em;
-		}
+	.video-play-icon {
+		height: 8rem;
+		width: 8rem;
 
 		@media (max-width: $breakpoint-mobile-max) {
-			height: 5em;
-			width: 5em;
+			height: 5rem;
+			width: 5rem;
 		}
 	}
 
 	&:hover,
 	&:focus {
-		.svg-icon {
+		.video-play-icon {
 			opacity: 1;
 		}
 	}
+}
+
+.video-title {
+  background: rgba($color-black, 0.5);
+  color: $color-white;
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  left: 0;
+  padding: 1rem;
+  position: absolute;
+  text-align: left;
+  top: 0;
+  width: 100%;
+  z-index: $z-index-default;
 }

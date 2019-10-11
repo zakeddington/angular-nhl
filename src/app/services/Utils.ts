@@ -100,7 +100,7 @@ export const UTILS = {
     stats = {
       id: starId,
       name: starName,
-      photo: `${CONSTANTS.imgUrl.player.base}${starId}${CONSTANTS.imgUrl.player.ext}`,
+      photo: `${CONSTANTS.imgUrl.player.base}${CONSTANTS.imgUrl.player.headshot}${starId}${CONSTANTS.imgUrl.player.ext}`,
       stat1: stat1,
       stat2: stat2,
       teamName: teamName,

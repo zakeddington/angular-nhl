@@ -295,7 +295,7 @@ export class GameService {
               name: player.player.fullName,
               total: player.seasonTotal,
               desc: curPlay.result.secondaryType,
-              photo: `${CONSTANTS.imgUrl.player.base}${player.player.id}${CONSTANTS.imgUrl.player.ext}`,
+              photo: `${CONSTANTS.imgUrl.player.base}${CONSTANTS.imgUrl.player.headshot}${player.player.id}${CONSTANTS.imgUrl.player.ext}`,
             };
           }
 
@@ -343,7 +343,7 @@ export class GameService {
           if (player.playerType === 'PenaltyOn') {
             curPenaltyOn = {
               name: player.player.fullName,
-              photo: `${CONSTANTS.imgUrl.player.base}${player.player.id}${CONSTANTS.imgUrl.player.ext}`,
+              photo: `${CONSTANTS.imgUrl.player.base}${CONSTANTS.imgUrl.player.headshot}${player.player.id}${CONSTANTS.imgUrl.player.ext}`,
             };
           }
         });
@@ -414,7 +414,7 @@ export class GameService {
             curShooter = {
               name: player.player.fullName,
               desc: curPlay.result.secondaryType,
-              photo: `${CONSTANTS.imgUrl.player.base}${player.player.id}${CONSTANTS.imgUrl.player.ext}`,
+              photo: `${CONSTANTS.imgUrl.player.base}${CONSTANTS.imgUrl.player.headshot}${player.player.id}${CONSTANTS.imgUrl.player.ext}`,
             };
           }
         });

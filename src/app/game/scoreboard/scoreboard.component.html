@@ -32,7 +32,9 @@
           <h3 class="header-title">Stars of the Game</h3>
           <div class="stars-content">
             <div class="stars-player" *ngFor="let star of data.stars">
-              <app-player-photo [photoUrl]="star.photo"></app-player-photo>
+              <app-modal-trigger modalType="player" [contentId]="star.id">
+                <app-player-photo [photoUrl]="star.photo"></app-player-photo>
+              </app-modal-trigger>
               <span class="stars-name">
                 {{star.name}}
                 <span class="stars-team-name">{{star.teamName}}</span>

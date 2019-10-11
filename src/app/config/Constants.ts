@@ -12,8 +12,10 @@ export const CONSTANTS = {
       base: '/assets/images/logo-teams.svg#team-',
     },
     player: {
-      base: '//nhl.bamcontent.com/images/headshots/current/60x60/',
+      base: '//nhl.bamcontent.com/images/',
       ext: '@2x.jpg',
+      headshot: 'headshots/current/60x60/',
+      hero: 'actionshots/',
     }
   },
 
@@ -22,6 +24,7 @@ export const CONSTANTS = {
   momentOptions: {
     apiFormat:  'YYYY-MM-DD',
     displayFormat: 'ddd, MMM D',
+    birthFormat: 'MMMM D, YYYY',
   },
 
   dateOptions: {

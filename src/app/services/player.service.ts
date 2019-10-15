@@ -40,7 +40,7 @@ export class PlayerService {
   }
 
   async processPlayerData(data) {
-    console.log('processPlayerData', data);
+    // console.log('processPlayerData', data);
     const player = data.people[0];
     const birthDate = moment(player.birthDate).format(CONSTANTS.momentOptions.birthFormat);
     const birthCity = player.birthCity;

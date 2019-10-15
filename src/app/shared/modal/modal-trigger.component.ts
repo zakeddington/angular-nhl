@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild, ComponentFactoryResolver, OnDestro
 import { ModalContentComponent } from './modal-content.component';
 import { ModalContentDirective } from './modal-content.directive';
 import { ModalContentItem } from './modal-content-item';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, ReplaySubject } from 'rxjs';
 import { PlayerService } from '../../services/player.service';
 
 @Component({
@@ -13,13 +13,16 @@ import { PlayerService } from '../../services/player.service';
     </button>
     <ng-template modal-host></ng-template>
   `,
-  styleUrls: ['./modal.component.scss']
+  styleUrls: ['./modal.component.scss'],
+  providers: [PlayerService],
 })
 export class ModalTriggerComponent implements OnInit, OnDestroy {
   @Input() contentId: string;
   @Input() modalType: string;
   @ViewChild(ModalContentDirective, {static: true}) modalHost: ModalContentDirective;
   modalData$: Observable<any>;
+  cacheData = new ReplaySubject(1);
+  cacheData$ = this.cacheData.asObservable();
   subscription: Subscription = new Subscription();
   viewContainerRef;
 
@@ -29,14 +32,11 @@ export class ModalTriggerComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    console.log('ModalTriggerComponent ngOnInit');
     this.viewContainerRef = this.modalHost.viewContainerRef;
   }
 
   onModalTrigger($event) {
-    console.log('onModalTrigger', $event, this.contentId);
     this.checkModalType();
-    // this.loadModalContent();
   }
 
   // prevent focus state on click
@@ -50,18 +50,21 @@ export class ModalTriggerComponent implements OnInit, OnDestroy {
         if (!this.modalData$) {
           this.getPlayerData();
         } else {
-          this.loadModalContent();
+          this.loadModalContent(this.cacheData$);
         }
         return;
       default:
         return;
-
     }
   }
 
   getPlayerData() {
     this.modalData$ = this.playerService.subscribeToPlayerData();
+    this.modalData$.subscribe(res => {
+      this.cacheData.next(res);
+    });
     this.playerService.getPlayerData(this.contentId);
+
     this.loadModalContent(this.modalData$);
   }
 
@@ -76,7 +79,6 @@ export class ModalTriggerComponent implements OnInit, OnDestroy {
   }
 
   closeModal() {
-    console.log('trigger closeModal');
     this.viewContainerRef.clear();
   }
 

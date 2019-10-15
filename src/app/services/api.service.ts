@@ -45,7 +45,6 @@ export class ApiService {
   }
 
   getPlayerData(playerId) {
-    console.log('api getPlayerData');
     const url = `${this.apiBaseUrl}people/${playerId}?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team&site=en_nhl`;
 
     return this.getData(url).pipe(

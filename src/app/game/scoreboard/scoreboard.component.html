@@ -36,7 +36,9 @@
                 <app-player-photo [photoUrl]="star.photo"></app-player-photo>
               </app-modal-trigger>
               <span class="stars-name">
-                {{star.name}}
+                <app-modal-trigger modalType="player" [contentId]="star.id">
+                  {{star.name}}
+                </app-modal-trigger>
                 <span class="stars-team-name">{{star.teamName}}</span>
               </span>
               <span class="stars-stat">{{star.stat1}}</span>

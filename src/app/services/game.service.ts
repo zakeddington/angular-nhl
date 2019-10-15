@@ -172,6 +172,7 @@ export class GameService {
       const player = players[key];
       if (Object.keys(player.stats).length) {
         const playerData = {
+          id: player.person.id,
           number: player.jerseyNumber,
           name: player.person.fullName,
           pos: player.position.abbreviation,
@@ -292,6 +293,7 @@ export class GameService {
         curPlay.players.forEach((player) => {
           if (player.playerType === 'Scorer') {
             curScorer = {
+              id: player.player.id,
               name: player.player.fullName,
               total: player.seasonTotal,
               desc: curPlay.result.secondaryType,
@@ -301,6 +303,7 @@ export class GameService {
 
           if (player.playerType === 'Assist') {
             curAssists.push({
+              id: player.player.id,
               name: player.player.fullName,
               total: player.seasonTotal,
             });
@@ -342,6 +345,7 @@ export class GameService {
         curPlay.players.forEach((player) => {
           if (player.playerType === 'PenaltyOn') {
             curPenaltyOn = {
+              id: player.player.id,
               name: player.player.fullName,
               photo: `${CONSTANTS.imgUrl.player.base}${CONSTANTS.imgUrl.player.headshot}${player.player.id}${CONSTANTS.imgUrl.player.ext}`,
             };
@@ -412,6 +416,7 @@ export class GameService {
         curPlay.players.forEach((player) => {
           if (player.playerType === 'Scorer' || player.playerType === 'Shooter') {
             curShooter = {
+              id: player.player.id,
               name: player.player.fullName,
               desc: curPlay.result.secondaryType,
               photo: `${CONSTANTS.imgUrl.player.base}${CONSTANTS.imgUrl.player.headshot}${player.player.id}${CONSTANTS.imgUrl.player.ext}`,

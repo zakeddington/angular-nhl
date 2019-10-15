@@ -15,11 +15,16 @@
             </div>
             <div class="period-summary-time"></div>
             <div class="period-summary-photo">
-              <app-player-photo [photoUrl]="play.shooter.photo"></app-player-photo>
+              <app-modal-trigger modalType="player" [contentId]="play.shooter.id">
+                <app-player-photo [photoUrl]="play.shooter.photo"></app-player-photo>
+              </app-modal-trigger>
             </div>
             <div class="period-summary-player-info">
               <span class="period-summary-player">
-                <span class="period-summary-name">{{play.shooter.name}}<ng-container *ngIf="play.shooter.desc">, </ng-container></span>
+                <span class="period-summary-name">
+                  <app-modal-trigger modalType="player" [contentId]="play.shooter.id">
+                    {{play.shooter.name}}
+                  </app-modal-trigger><ng-container *ngIf="play.shooter.desc">, </ng-container></span>
                 <span class="period-summary-goal-desc">{{play.shooter.desc}}</span>
               </span>
             </div>
@@ -40,11 +45,17 @@
               </div>
               <div class="period-summary-time">{{goal.time}}</div>
               <div class="period-summary-photo">
-                <app-player-photo [photoUrl]="goal.scorer.photo"></app-player-photo>
+                <app-modal-trigger modalType="player" [contentId]="goal.scorer.id">
+                  <app-player-photo [photoUrl]="goal.scorer.photo"></app-player-photo>
+                </app-modal-trigger>
               </div>
               <div class="period-summary-player-info">
               <span class="period-summary-player">
-                <span class="period-summary-name">{{goal.scorer.name}} ({{goal.scorer.total}}),</span>
+                <span class="period-summary-name">
+                  <app-modal-trigger modalType="player" [contentId]="goal.scorer.id">
+                    {{goal.scorer.name}}
+                  </app-modal-trigger>
+                  ({{goal.scorer.total}}),</span>
                 <span class="period-summary-goal-desc">
                   {{goal.scorer.desc}}<ng-container *ngIf="goal.isEmptyNet"> (Empty Net)</ng-container>
                 </span>
@@ -55,7 +66,9 @@
                 <span class="period-summary-details">
                 <ng-container *ngFor="let assist of goal.assists; last as isLast">
                   <span>
-                    {{assist.name}} ({{assist.total}})<ng-container *ngIf="!isLast">, </ng-container>
+                    <app-modal-trigger modalType="player" [contentId]="assist.id">
+                      {{assist.name}}
+                    </app-modal-trigger> ({{assist.total}})<ng-container *ngIf="!isLast">, </ng-container>
                   </span>
                 </ng-container>
               </span>
@@ -82,11 +95,17 @@
               </div>
               <div class="period-summary-time">{{penalty.time}}</div>
               <div class="period-summary-photo">
-                <app-player-photo [photoUrl]="penalty.penaltyOn.photo"></app-player-photo>
+                <app-modal-trigger modalType="player" [contentId]="penalty.penaltyOn.id">
+                  <app-player-photo [photoUrl]="penalty.penaltyOn.photo"></app-player-photo>
+                </app-modal-trigger>
               </div>
               <div class="period-summary-player-info">
                 <span class="period-summary-player">
-                  <span class="period-summary-name">{{penalty.penaltyOn.name}}</span>
+                  <span class="period-summary-name">
+                    <app-modal-trigger modalType="player" [contentId]="penalty.penaltyOn.id">
+                      {{penalty.penaltyOn.name}}
+                    </app-modal-trigger>
+                  </span>
                 </span>
                 <span class="period-summary-details">{{penalty.penaltyMin}} Minutes for {{penalty.penaltyType}}</span>
               </div>

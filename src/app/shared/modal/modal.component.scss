@@ -4,6 +4,15 @@
   &--trigger {
     background: none;
     border: none;
+    font-size: inherit;
+    font-weight: inherit;
+    margin: 0;
+    padding: 0;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
   }
 
   &--overlay {

@@ -29,7 +29,10 @@
                   <tbody>
                   <tr *ngFor="let player of group.players">
                     <td class="player-number">{{player.number}}</td>
-                    <td class="player-name">{{player.name}}, {{player.pos}}</td>
+                    <td class="player-name">
+                      <app-modal-trigger modalType="player" [contentId]="player.id">
+                        {{player.name}}
+                      </app-modal-trigger>, {{player.pos}}</td>
                     <td>{{player.stats.shots - player.stats.saves}}</td>
                     <td>{{player.stats.shots}}</td>
                     <td>{{player.stats.saves}}</td>
@@ -70,7 +73,10 @@
                   <tbody>
                   <tr *ngFor="let player of group.players">
                     <td class="player-number">{{player.number}}</td>
-                    <td class="player-name">{{player.name}}, {{player.pos}}</td>
+                    <td class="player-name">
+                      <app-modal-trigger modalType="player" [contentId]="player.id">
+                        {{player.name}}
+                      </app-modal-trigger>, {{player.pos}}</td>
                     <td>{{player.stats.goals}}</td>
                     <td>{{player.stats.assists}}</td>
                     <td>{{player.stats.goals + player.stats.assists}}</td>

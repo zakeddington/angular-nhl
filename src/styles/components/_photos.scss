@@ -11,6 +11,7 @@
 	height: 60px;
 	margin: 0 auto;
 	overflow: hidden;
+  transition: all $anim-speed $anim-ease;
 	width: 60px;
 
 	@media (min-width: $breakpoint-desktop-min) {
@@ -21,6 +22,11 @@
 	@media (max-width: $breakpoint-mobile-max) {
 		display: none;
 	}
+
+  &:hover,
+  &:focus {
+    border-color: $color-grey-dark;
+  }
 
 	.photo {
 		background-position: center;

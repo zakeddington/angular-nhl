@@ -62,7 +62,6 @@
     background: $color-white;
     display: block;
     padding: $gutter-width;
-    position: relative;
   }
 }
 
@@ -73,6 +72,55 @@
     display: block;
     height: 0;
     padding-top: 33.3%;
+    position: relative;
     width: 100%;
+
+    //&::after {
+    //  background: linear-gradient(0deg, $color-white, transparent);
+    //  bottom: 0;
+    //  content: '';
+    //  display: block;
+    //  height: 50%;
+    //  left: 0;
+    //  position: absolute;
+    //  width: 100%;
+    //}
+  }
+
+  &--bio {
+    display: flex;
+    font-weight: 400;
+    padding: 1rem;
+    position: relative;
+    text-align: left;
+
+    &-info {
+      flex: 1;
+    }
+  }
+
+  &--name {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  &--stat {
+    display: inline-block;
+    margin: 0 1rem 0.25rem 0;
+  }
+
+  &--label {
+    font-weight: 600;
+  }
+
+  ::ng-deep .player-photo {
+    height: 12rem;
+    margin: -3rem 2rem 0 1rem;
+    width: 12rem;
+
+    &:hover,
+    &:focus {
+      border-color: $color-grey-med;
+    }
   }
 }

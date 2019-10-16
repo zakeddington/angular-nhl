@@ -8,12 +8,12 @@ import { TabsContentComponent } from './tabs/tabs-content.component';
 import { LoaderComponent } from './loader/loader.component';
 import { VideoCarouselComponent } from './video-carousel/video-carousel.component';
 import { ModalTriggerComponent } from './modal/modal-trigger.component';
-import { ModalContentComponent } from './modal/modal-content.component';
+import { ModalPlayerDetailComponent } from './modal/modal-player-detail.component';
 import { ModalContentDirective } from './modal/modal-content.directive';
 
 @NgModule({
   entryComponents: [
-    ModalContentComponent,
+    ModalPlayerDetailComponent,
   ],
   declarations: [
     IconComponent,
@@ -24,7 +24,7 @@ import { ModalContentDirective } from './modal/modal-content.directive';
     LoaderComponent,
     VideoCarouselComponent,
     ModalTriggerComponent,
-    ModalContentComponent,
+    ModalPlayerDetailComponent,
     ModalContentDirective,
   ],
   imports: [
@@ -39,7 +39,7 @@ import { ModalContentDirective } from './modal/modal-content.directive';
     LoaderComponent,
     VideoCarouselComponent,
     ModalTriggerComponent,
-    ModalContentComponent,
+    ModalPlayerDetailComponent,
     ModalContentDirective,
   ]
 })

@@ -3,10 +3,10 @@ import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-modal-content',
-  templateUrl: './modal-content.component.html',
+  templateUrl: './modal-player-detail.component.html',
   styleUrls: ['./modal.component.scss'],
 })
-export class ModalContentComponent {
+export class ModalPlayerDetailComponent {
   @Input() data: Observable<any>;
   @Output() closeModalCallback = new EventEmitter<any>();
 

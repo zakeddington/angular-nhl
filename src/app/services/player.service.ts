@@ -40,13 +40,15 @@ export class PlayerService {
   }
 
   async processPlayerData(data) {
-    // console.log('processPlayerData', data);
+    console.log('processPlayerData', data);
     const player = data.people[0];
     const birthDate = moment(player.birthDate).format(CONSTANTS.momentOptions.birthFormat);
     const birthCity = player.birthCity;
     const birthState = player.birthStateProvince;
     const headshot = `${CONSTANTS.imgUrl.player.base}${CONSTANTS.imgUrl.player.headshot}${player.id}${CONSTANTS.imgUrl.player.ext}`;
     const hero = `${CONSTANTS.imgUrl.player.base}${CONSTANTS.imgUrl.player.hero}${player.id}${CONSTANTS.imgUrl.player.ext}`;
+    const arena = `${CONSTANTS.imgUrl.player.base}${CONSTANTS.imgUrl.player.arena}${player.currentTeam.id}${CONSTANTS.imgUrl.player.ext}`;
+    const validateHeroImg = new Image();
     let birthPlace = player.birthCountry;
 
     if (birthState) {
@@ -61,16 +63,25 @@ export class PlayerService {
       showNoResults: false,
       name: player.fullName,
       height: player.height,
+      weight: player.weight,
       birthPlace,
       birthDate,
       number: player.primaryNumber,
-      pos: player.primaryPosition.code,
+      pos: player.primaryPosition.abbreviation,
       age: player.currentAge,
       shoots: player.shootsCatches,
       headshot,
       hero,
     };
 
-    this.playerData.next(results);
+    validateHeroImg.src = hero;
+    validateHeroImg.onerror = () => {
+      results.hero = arena;
+      this.playerData.next(results);
+    };
+
+    validateHeroImg.onload = () => {
+      this.playerData.next(results);
+    };
   }
 }

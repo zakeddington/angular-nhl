@@ -3,18 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import {catchError, mergeMap, retry} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  apiBaseUrl = 'https://statsapi.web.nhl.com/api/v1/';
+  statsBaseUrl = 'https://statsapi.web.nhl.com/api/v1/';
+  recordsBaseUrl = 'https://records.nhl.com/site/api/';
 
   constructor(private http: HttpClient) { }
 
   getGameDetail(gameId) {
-    const url = `${this.apiBaseUrl}game/${gameId}/feed/live`;
+    const url = `${this.statsBaseUrl}game/${gameId}/feed/live`;
 
     return this.getData(url).pipe(
       catchError(this.handleError)
@@ -22,7 +23,7 @@ export class ApiService {
   }
 
   getGameContent(gameId) {
-    const url = `${this.apiBaseUrl}game/${gameId}/content`;
+    const url = `${this.statsBaseUrl}game/${gameId}/content`;
 
     return this.getData(url).pipe(
       catchError(this.handleError)
@@ -30,7 +31,7 @@ export class ApiService {
   }
 
   getSchedule(strStart, strEnd, arrParams) {
-    let url = `${this.apiBaseUrl}schedule`;
+    let url = `${this.statsBaseUrl}schedule`;
     let params = '';
 
     if (arrParams) {
@@ -45,7 +46,17 @@ export class ApiService {
   }
 
   getPlayerData(playerId) {
-    const url = `${this.apiBaseUrl}people/${playerId}?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team&site=en_nhl`;
+    const url = `${this.statsBaseUrl}people/${playerId}?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team&site=en_nhl`;
+
+    return this.getData(url).pipe(
+      // disabled due to cors error on records api
+      // mergeMap(() => this.getPlayerDraftPos(playerId)),
+      catchError(this.handleError)
+    );
+  }
+
+  getPlayerDraftPos(playerId) {
+    const url = `${this.recordsBaseUrl}draft?cayenneExp=player=${playerId}`;
 
     return this.getData(url).pipe(
       catchError(this.handleError)

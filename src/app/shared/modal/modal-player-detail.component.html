@@ -1,0 +1,50 @@
+<div class="modal--overlay" (click)="onCloseModalClick()">
+  <div class="modal--container player-detail">
+    <button class="modal--close" (click)="onCloseModalClick()">
+      <app-icon iconId="close"></app-icon>
+      <span class="offscreen">close modal</span>
+    </button>
+    <div class="modal--content">
+      <ng-container *ngIf="data | async; let data; else loader">
+        <ng-container *ngIf="data.showNoResults || data.isPreview; else content">
+          <h2 class="error-msg">No player stats available.</h2>
+        </ng-container>
+
+        <ng-template #content>
+          <div class="player-detail--hero" [style.backgroundImage]="'url(' + data.hero + ')'"></div>
+          <div class="player-detail--bio">
+            <app-player-photo [photoUrl]="data.headshot"></app-player-photo>
+            <div class="player-detail--bio-info">
+              <div class="player-detail--name">{{data.name}} #{{data.number}}</div>
+              <div>
+                <span class="player-detail--stat">{{data.pos}} | {{data.height}} | {{data.weight}} lbs</span>
+              </div>
+              <div>
+                <span class="player-detail--stat">
+                  <span class="player-detail--label">Shoots:</span> {{data.shoots}}
+                </span>
+              </div>
+              <div>
+                <span class="player-detail--stat">
+                  <span class="player-detail--label">Born:</span> {{data.birthDate}}
+                </span>
+                <span class="player-detail--stat">
+                  <span class="player-detail--label">Age:</span> {{data.age}}
+                </span>
+              </div>
+              <div>
+                <span class="player-detail--stat">
+                  <span class="player-detail--label">Birthplace:</span> {{data.birthPlace}}
+                </span>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+
+      <ng-template #loader>
+        <app-loader></app-loader>
+      </ng-template>
+    </div>
+  </div>
+</div>

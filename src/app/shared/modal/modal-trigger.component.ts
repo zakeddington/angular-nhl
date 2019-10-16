@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild, ComponentFactoryResolver, OnDestroy } from '@angular/core';
-import { ModalContentComponent } from './modal-content.component';
+import { ModalPlayerDetailComponent } from './modal-player-detail.component';
 import { ModalContentDirective } from './modal-content.directive';
 import { ModalContentItem } from './modal-content-item';
 import { Observable, Subscription, ReplaySubject } from 'rxjs';
@@ -69,12 +69,13 @@ export class ModalTriggerComponent implements OnInit, OnDestroy {
   }
 
   loadModalContent(data = {}) {
-    const modalContent = new ModalContentItem(ModalContentComponent, data);
+    console.log('data', data);
+    const modalContent = new ModalContentItem(ModalPlayerDetailComponent, data);
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(modalContent.component);
     this.viewContainerRef.clear();
 
     const componentRef = this.viewContainerRef.createComponent(componentFactory);
-    (componentRef.instance as ModalContentComponent).data = modalContent.data;
+    (componentRef.instance as ModalPlayerDetailComponent).data = modalContent.data;
     componentRef.instance.closeModalCallback.subscribe(() => this.closeModal());
   }
 

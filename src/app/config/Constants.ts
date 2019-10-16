@@ -14,8 +14,9 @@ export const CONSTANTS = {
     player: {
       base: '//nhl.bamcontent.com/images/',
       ext: '@2x.jpg',
-      headshot: 'headshots/current/60x60/',
+      headshot: 'headshots/current/168x168/',
       hero: 'actionshots/',
+      arena: 'arena/default/',
     }
   },
 

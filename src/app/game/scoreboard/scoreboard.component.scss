@@ -58,7 +58,6 @@
   }
 
   .stars-name {
-    color: $color-grey-dark;
     font-weight: 700;
     width: 100%;
 
@@ -89,7 +88,6 @@
 .scoreboard {
   background: $color-white;
   border-bottom: 1px solid $color-grey-med;
-  color: $color-grey-dark;
   display: flex;
   flex-direction: column;
   margin: 0 auto 2em;

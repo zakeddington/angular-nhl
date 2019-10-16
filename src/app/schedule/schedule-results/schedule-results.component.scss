@@ -11,7 +11,7 @@
   a {
     background: rgba($color-white, 0.5);
     border: 1px solid rgba($color-grey, 0.2);
-    color: $color-grey;
+    color: $color-grey-dark;
     height: 100%;
     padding: 0.5em 1em;
     text-decoration: none;
@@ -63,14 +63,12 @@
       }
 
       .away {
-        color: $color-grey-dark;
         font-weight: 700;
       }
     }
 
     &.is-home-winner {
       .home {
-        color: $color-grey-dark;
         font-weight: 700;
       }
 

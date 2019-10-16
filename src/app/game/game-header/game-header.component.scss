@@ -34,7 +34,6 @@
     }
 
     &.away {
-      color: $color-grey-dark;
       order: 1;
 
       @media (min-width: $breakpoint-tablet-min) {
@@ -47,7 +46,6 @@
     }
 
     &.home {
-      color: $color-grey-dark;
       order: 3;
       text-align: left;
 

@@ -69,7 +69,6 @@ export class ModalTriggerComponent implements OnInit, OnDestroy {
   }
 
   loadModalContent(data = {}) {
-    console.log('data', data);
     const modalContent = new ModalContentItem(ModalPlayerDetailComponent, data);
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(modalContent.component);
     this.viewContainerRef.clear();

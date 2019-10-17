@@ -39,6 +39,104 @@
               </div>
             </div>
           </div>
+
+          <div class="player-detail--stats">
+            <h2 class="player-detail--stats-title">Career Stats</h2>
+            <ng-container *ngIf="data.pos === 'G'; else skatersLayout">
+              <table class="stats-table">
+                <thead>
+                  <tr>
+                    <th class="text-left">Season</th>
+                    <th class="text-left">Team</th>
+                    <th class="tooltip">GP <span class="tooltip-content">Games Played</span></th>
+                    <th class="tooltip">GS <span class="tooltip-content">Games Started</span></th>
+                    <th class="tooltip">W <span class="tooltip-content">Wins</span></th>
+                    <th class="tooltip">L <span class="tooltip-content">Losses</span></th>
+                    <th class="tooltip">T <span class="tooltip-content">Ties</span></th>
+                    <th class="tooltip">OT <span class="tooltip-content">Overtime Losses</span></th>
+                    <th class="tooltip">SA <span class="tooltip-content">Shots Against</span></th>
+                    <th class="tooltip">GA <span class="tooltip-content">Goals Against</span></th>
+                    <th class="tooltip">GAA <span class="tooltip-content">Goals Against Average</span></th>
+                    <th class="tooltip">SV <span class="tooltip-content">Saves</span></th>
+                    <th class="tooltip">SV% <span class="tooltip-content">Save Percentage</span></th>
+                    <th class="tooltip">SO <span class="tooltip-content">Shutouts</span></th>
+                    <th class="tooltip">MIN <span class="tooltip-content">Minutes</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let season of data.careerStats" [class.total]="season.season === 'Total'">
+                    <td class="text-left">{{season.season}}</td>
+                    <td class="text-left">{{season.team.abbreviation}}</td>
+                    <td>{{season.stats.games}}</td>
+                    <td>{{season.stats.gamesStarted}}</td>
+                    <td>{{season.stats.wins}}</td>
+                    <td>{{season.stats.losses}}</td>
+                    <td>{{season.stats.ties}}</td>
+                    <td>{{season.stats.ot}}</td>
+                    <td>{{season.stats.shotsAgainst}}</td>
+                    <td>{{season.stats.goalsAgainst}}</td>
+                    <td>{{season.stats.goalAgainstAverage}}</td>
+                    <td>{{season.stats.saves}}</td>
+                    <td>{{season.stats.savePercentage}}</td>
+                    <td>{{season.stats.shutouts}}</td>
+                    <td>{{season.stats.timeOnIce}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-container>
+
+            <ng-template #skatersLayout>
+              <table class="stats-table">
+                <thead>
+                  <tr>
+                    <th class="text-left">Season</th>
+                    <th class="text-left">Team</th>
+                    <th class="tooltip">GP <span class="tooltip-content">Games Played</span></th>
+                    <th class="tooltip">G <span class="tooltip-content">Goals</span></th>
+                    <th class="tooltip">A <span class="tooltip-content">Assists</span></th>
+                    <th class="tooltip">P <span class="tooltip-content">Points</span></th>
+                    <th class="tooltip">+/- <span class="tooltip-content">Plus / Minus</span></th>
+                    <th class="tooltip">PIM <span class="tooltip-content">Penalty Minutes</span></th>
+                    <th class="tooltip">PPG <span class="tooltip-content">Power Play Goals</span></th>
+                    <th class="tooltip">PPP <span class="tooltip-content">Power Play Points</span></th>
+                    <th class="tooltip">SHG <span class="tooltip-content">Shorthanded Goals</span></th>
+                    <th class="tooltip">SHP <span class="tooltip-content">Shorthanded Points</span></th>
+                    <th class="tooltip">GWG <span class="tooltip-content">Game Winning Goals</span></th>
+                    <th class="tooltip">OTG <span class="tooltip-content">Overtime Goals</span></th>
+                    <th class="tooltip">SOG <span class="tooltip-content">Shots on Goal</span></th>
+                    <th class="tooltip">S% <span class="tooltip-content">Shooting Percentage</span></th>
+                    <th class="tooltip">HT <span class="tooltip-content">Hits</span></th>
+                    <th class="tooltip">BS <span class="tooltip-content">Blocked Shots</span></th>
+                    <th class="tooltip">FO% <span class="tooltip-content">Faceoff Win Percentage</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let season of data.careerStats" [class.total]="season.season === 'Total'">
+                    <td class="text-left">{{season.season}}</td>
+                    <td class="text-left">{{season.team.abbreviation}}</td>
+                    <td>{{season.stats.games}}</td>
+                    <td>{{season.stats.goals}}</td>
+                    <td>{{season.stats.assists}}</td>
+                    <td>{{season.stats.goals + season.stats.assists}}</td>
+                    <td>{{season.stats.plusMinus}}</td>
+                    <td>{{season.stats.penaltyMinutes}}</td>
+                    <td>{{season.stats.powerPlayGoals}}</td>
+                    <td>{{season.stats.powerPlayPoints}}</td>
+                    <td>{{season.stats.shortHandedGoals}}</td>
+                    <td>{{season.stats.shortHandedPoints}}</td>
+                    <td>{{season.stats.gameWinningGoals}}</td>
+                    <td>{{season.stats.overTimeGoals}}</td>
+                    <td>{{season.stats.shots}}</td>
+                    <td>{{season.stats.shotPct}}</td>
+                    <td>{{season.stats.hits}}</td>
+                    <td>{{season.stats.blocked}}</td>
+                    <td>{{season.stats.faceOffPct}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-template>
+          </div>
+
         </ng-template>
       </ng-container>
 

@@ -1,0 +1,51 @@
+
+// Team/Player Stats Tables
+// -----------------------------------------------------------------+
+
+.stats-table {
+  background: $color-white;
+  font-size: 0.875rem;
+  margin: 0;
+  text-align: right;
+  width: 100%;
+
+  tr {
+    border-bottom: 1px solid $color-grey-med;
+
+    &:hover {
+      background: $color-grey-light;
+    }
+
+    &.total {
+      background: $color-grey-med;
+
+      td {
+        font-weight: 600;
+      }
+    }
+  }
+
+  th,
+  td {
+    padding: 0.5em;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 5%;
+
+    &.stats-table--name {
+      width: 20%;
+    }
+  }
+
+  th {
+    background: $color-grey-med;
+    font-weight: 600;
+  }
+
+  td {
+    font-weight: 500;
+  }
+
+
+}
+

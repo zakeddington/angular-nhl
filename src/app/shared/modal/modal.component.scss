@@ -61,6 +61,8 @@
   &--content {
     background: $color-white;
     display: block;
+    max-height: 100%;
+    overflow-y: auto;
     padding: $gutter-width;
   }
 }
@@ -74,17 +76,6 @@
     padding-top: 33.3%;
     position: relative;
     width: 100%;
-
-    //&::after {
-    //  background: linear-gradient(0deg, $color-white, transparent);
-    //  bottom: 0;
-    //  content: '';
-    //  display: block;
-    //  height: 50%;
-    //  left: 0;
-    //  position: absolute;
-    //  width: 100%;
-    //}
   }
 
   &--bio {
@@ -121,6 +112,17 @@
     &:hover,
     &:focus {
       border-color: $color-grey-med;
+    }
+  }
+
+  &--stats {
+    &-title {
+      background: $color-grey-dark;
+      color: $color-white;
+      font-size: 1rem;
+      margin-bottom: 0;
+      padding: 1rem;
+      text-align: left;
     }
   }
 }

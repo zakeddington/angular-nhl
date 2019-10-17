@@ -59,6 +59,19 @@ export class PlayerService {
       birthPlace = `${birthCity}, ${birthPlace}`;
     }
 
+    let careerStats = [];
+    let careerStatsTotal = {};
+
+    player.stats.map((stats) => {
+      if (stats.type.displayName === 'yearByYear') {
+        careerStats = this.createCareerSeasonStats(stats.splits);
+      } else if (stats.type.displayName === 'careerRegularSeason') {
+        careerStatsTotal = this.createCareerTotalStats(stats.splits);
+      }
+    });
+
+    careerStats.push(careerStatsTotal);
+
     const results = {
       showNoResults: false,
       name: player.fullName,
@@ -72,16 +85,57 @@ export class PlayerService {
       shoots: player.shootsCatches,
       headshot,
       hero,
+      careerStats,
     };
 
     validateHeroImg.src = hero;
     validateHeroImg.onerror = () => {
       results.hero = arena;
+      console.log('player results', results);
       this.playerData.next(results);
     };
 
     validateHeroImg.onload = () => {
+      console.log('player results', results);
       this.playerData.next(results);
+    };
+  }
+
+  createCareerSeasonStats(data) {
+    const stats = [];
+
+    data.map((item) => {
+      if (item.league.id === 133) {
+        let season = item.season;
+        season = season.substring(0, 4) + '-' + season.substring(4);
+
+        const results = {
+          season,
+          team: {
+            abbreviation: item.team.abbreviation,
+            id: item.team.id,
+          },
+          stats: item.stat,
+        };
+
+        stats.push(results);
+      }
+    });
+
+    return stats;
+  }
+
+  createCareerTotalStats(data) {
+    data[0].stat.goalAgainstAverage = (Math.round(data[0].stat.goalAgainstAverage * 100) / 100).toFixed(2);
+    data[0].stat.savePercentage = (Math.round(data[0].stat.savePercentage * 1000) / 1000).toFixed(3);
+
+    return {
+      season: 'Total',
+      team: {
+        abbreviation: '',
+        id: '',
+      },
+      stats: data[0].stat,
     };
   }
 }

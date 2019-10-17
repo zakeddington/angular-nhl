@@ -4,103 +4,101 @@
   </ng-container>
 
   <ng-template #content>
-    <div class="player-stats" *ngIf="data">
-      <app-tabs tabsClass="player-stats-nav">
-        <ng-container *ngFor="let team of data.teams">
-          <app-tabs-content [tabTitle]="team.name" [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="team.id">
-            <ng-container *ngFor="let group of team.stats">
-              <ng-container *ngIf="group.position == 'Goalies'; else skatersLayout">
-                <table>
-                  <thead>
-                  <tr>
-                    <th></th>
-                    <th class="player-position">{{group.position}}</th>
-                    <th class="tooltip">GA <span class="tooltip-content">Goals Against</span></th>
-                    <th class="tooltip">SA <span class="tooltip-content">Shots Against</span></th>
-                    <th class="tooltip">SV <span class="tooltip-content">Saves</span></th>
-                    <th class="tooltip">SV% <span class="tooltip-content">Save Percentage</span></th>
-                    <th class="tooltip">EV <span class="tooltip-content">Even Strength Saves-Shots</span></th>
-                    <th class="tooltip">PP <span class="tooltip-content">Power Play Saves-Shots</span></th>
-                    <th class="tooltip">SH <span class="tooltip-content">Shorthanded Saves-Shots</span></th>
-                    <th class="tooltip">PIM <span class="tooltip-content">Penalty Minutes</span></th>
-                    <th class="tooltip">TOI <span class="tooltip-content">Total On Ice Time</span></th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr *ngFor="let player of group.players">
-                    <td class="player-number">{{player.number}}</td>
-                    <td class="player-name">
-                      <app-modal-trigger modalType="player" [contentId]="player.id">
-                        {{player.name}}
-                      </app-modal-trigger>, {{player.pos}}</td>
-                    <td>{{player.stats.shots - player.stats.saves}}</td>
-                    <td>{{player.stats.shots}}</td>
-                    <td>{{player.stats.saves}}</td>
-                    <td>{{player.stats.savePercent}}</td>
-                    <td>{{player.stats.evenSaves}} - {{player.stats.evenShotsAgainst}}</td>
-                    <td>{{player.stats.powerPlaySaves}} - {{player.stats.powerPlayShotsAgainst}}</td>
-                    <td>{{player.stats.shortHandedSaves}} - {{player.stats.shortHandedShotsAgainst}}</td>
-                    <td>{{player.stats.pim}}</td>
-                    <td>{{player.stats.timeOnIce}}</td>
-                  </tr>
-                  </tbody>
-                </table>
-              </ng-container>
-
-              <ng-template #skatersLayout>
-                <table>
-                  <thead>
-                  <tr>
-                    <th></th>
-                    <th class="player-position">{{group.position}}</th>
-                    <th class="tooltip">G <span class="tooltip-content">Goals</span></th>
-                    <th class="tooltip">A <span class="tooltip-content">Assists</span></th>
-                    <th class="tooltip">P <span class="tooltip-content">Points</span></th>
-                    <th class="tooltip">+/- <span class="tooltip-content">Plus / Minus</span></th>
-                    <th class="tooltip">PIM <span class="tooltip-content">Penalty Minutes</span></th>
-                    <th class="tooltip">SOG <span class="tooltip-content">Shots on Goal</span></th>
-                    <th class="tooltip">HT <span class="tooltip-content">Hits</span></th>
-                    <th class="tooltip">BS <span class="tooltip-content">Blocked Shots</span></th>
-                    <th class="tooltip">GV <span class="tooltip-content">Giveaways</span></th>
-                    <th class="tooltip">TK <span class="tooltip-content">Takeaways</span></th>
-                    <th class="tooltip">FW <span class="tooltip-content">Faceoff Win</span></th>
-                    <th class="tooltip">FL <span class="tooltip-content">Faceoff Loss</span></th>
-                    <th class="tooltip">FO% <span class="tooltip-content">Faceoff Win Percentage</span></th>
-                    <th class="tooltip">TOI <span class="tooltip-content">Total On Ice Time</span></th>
-                    <th class="tooltip">PP TOI <span class="tooltip-content">Power Play Total On Ice Time</span></th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr *ngFor="let player of group.players">
-                    <td class="player-number">{{player.number}}</td>
-                    <td class="player-name">
-                      <app-modal-trigger modalType="player" [contentId]="player.id">
-                        {{player.name}}
-                      </app-modal-trigger>, {{player.pos}}</td>
-                    <td>{{player.stats.goals}}</td>
-                    <td>{{player.stats.assists}}</td>
-                    <td>{{player.stats.goals + player.stats.assists}}</td>
-                    <td>{{player.stats.plusMinus}}</td>
-                    <td>{{player.stats.penaltyMinutes}}</td>
-                    <td>{{player.stats.shots}}</td>
-                    <td>{{player.stats.hits}}</td>
-                    <td>{{player.stats.blocked}}</td>
-                    <td>{{player.stats.giveaways}}</td>
-                    <td>{{player.stats.takeaways}}</td>
-                    <td>{{player.stats.faceOffWins}}</td>
-                    <td>{{player.stats.faceoffTaken}}</td>
-                    <td>{{player.stats.faceOffPercent}}</td>
-                    <td>{{player.stats.timeOnIce}}</td>
-                    <td>{{player.stats.powerPlayTimeOnIce}}</td>
-                  </tr>
-                  </tbody>
-                </table>
-              </ng-template>
+    <app-tabs *ngIf="data">
+      <ng-container *ngFor="let team of data.teams">
+        <app-tabs-content [tabTitle]="team.name" [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="team.id">
+          <ng-container *ngFor="let group of team.stats">
+            <ng-container *ngIf="group.position == 'Goalies'; else skatersLayout">
+              <table class="stats-table goalie-stats">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th class="text-left">{{group.position}}</th>
+                  <th class="tooltip">GA <span class="tooltip-content">Goals Against</span></th>
+                  <th class="tooltip">SA <span class="tooltip-content">Shots Against</span></th>
+                  <th class="tooltip">SV <span class="tooltip-content">Saves</span></th>
+                  <th class="tooltip">SV% <span class="tooltip-content">Save Percentage</span></th>
+                  <th class="tooltip">EV <span class="tooltip-content">Even Strength Saves-Shots</span></th>
+                  <th class="tooltip">PP <span class="tooltip-content">Power Play Saves-Shots</span></th>
+                  <th class="tooltip">SH <span class="tooltip-content">Shorthanded Saves-Shots</span></th>
+                  <th class="tooltip">PIM <span class="tooltip-content">Penalty Minutes</span></th>
+                  <th class="tooltip">TOI <span class="tooltip-content">Total On Ice Time</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let player of group.players">
+                  <td class="stats-table--jersey">{{player.number}}</td>
+                  <td class="text-left stats-table--name">
+                    <app-modal-trigger modalType="player" [contentId]="player.id">
+                      {{player.name}}
+                    </app-modal-trigger>, {{player.pos}}</td>
+                  <td>{{player.stats.shots - player.stats.saves}}</td>
+                  <td>{{player.stats.shots}}</td>
+                  <td>{{player.stats.saves}}</td>
+                  <td>{{player.stats.savePercent}}</td>
+                  <td>{{player.stats.evenSaves}} - {{player.stats.evenShotsAgainst}}</td>
+                  <td>{{player.stats.powerPlaySaves}} - {{player.stats.powerPlayShotsAgainst}}</td>
+                  <td>{{player.stats.shortHandedSaves}} - {{player.stats.shortHandedShotsAgainst}}</td>
+                  <td>{{player.stats.pim}}</td>
+                  <td>{{player.stats.timeOnIce}}</td>
+                </tr>
+                </tbody>
+              </table>
             </ng-container>
-          </app-tabs-content>
-        </ng-container>
-      </app-tabs>
-    </div>
+
+            <ng-template #skatersLayout>
+              <table class="stats-table">
+                <thead>
+                <tr>
+                  <th></th>
+                  <th class="text-left">{{group.position}}</th>
+                  <th class="tooltip">G <span class="tooltip-content">Goals</span></th>
+                  <th class="tooltip">A <span class="tooltip-content">Assists</span></th>
+                  <th class="tooltip">P <span class="tooltip-content">Points</span></th>
+                  <th class="tooltip">+/- <span class="tooltip-content">Plus / Minus</span></th>
+                  <th class="tooltip">PIM <span class="tooltip-content">Penalty Minutes</span></th>
+                  <th class="tooltip">SOG <span class="tooltip-content">Shots on Goal</span></th>
+                  <th class="tooltip">HT <span class="tooltip-content">Hits</span></th>
+                  <th class="tooltip">BS <span class="tooltip-content">Blocked Shots</span></th>
+                  <th class="tooltip">GV <span class="tooltip-content">Giveaways</span></th>
+                  <th class="tooltip">TK <span class="tooltip-content">Takeaways</span></th>
+                  <th class="tooltip">FW <span class="tooltip-content">Faceoff Win</span></th>
+                  <th class="tooltip">FL <span class="tooltip-content">Faceoff Loss</span></th>
+                  <th class="tooltip">FO% <span class="tooltip-content">Faceoff Win Percentage</span></th>
+                  <th class="tooltip">TOI <span class="tooltip-content">Total On Ice Time</span></th>
+                  <th class="tooltip">PP TOI <span class="tooltip-content">Power Play Total On Ice Time</span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let player of group.players">
+                  <td class="stats-table--jersey">{{player.number}}</td>
+                  <td class="text-left stats-table--name">
+                    <app-modal-trigger modalType="player" [contentId]="player.id">
+                      {{player.name}}
+                    </app-modal-trigger>, {{player.pos}}</td>
+                  <td>{{player.stats.goals}}</td>
+                  <td>{{player.stats.assists}}</td>
+                  <td>{{player.stats.goals + player.stats.assists}}</td>
+                  <td>{{player.stats.plusMinus}}</td>
+                  <td>{{player.stats.penaltyMinutes}}</td>
+                  <td>{{player.stats.shots}}</td>
+                  <td>{{player.stats.hits}}</td>
+                  <td>{{player.stats.blocked}}</td>
+                  <td>{{player.stats.giveaways}}</td>
+                  <td>{{player.stats.takeaways}}</td>
+                  <td>{{player.stats.faceOffWins}}</td>
+                  <td>{{player.stats.faceoffTaken}}</td>
+                  <td>{{player.stats.faceOffPercent}}</td>
+                  <td>{{player.stats.timeOnIce}}</td>
+                  <td>{{player.stats.powerPlayTimeOnIce}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </ng-template>
+          </ng-container>
+        </app-tabs-content>
+      </ng-container>
+    </app-tabs>
   </ng-template>
 </ng-container>
 

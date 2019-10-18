@@ -4,7 +4,7 @@
   </ng-container>
 
   <ng-template #content>
-    <app-tabs *ngIf="data">
+    <app-tabs *ngIf="data" tabsClass="player-stats--tabs">
       <ng-container *ngFor="let team of data.teams">
         <app-tabs-content [tabTitle]="team.name" [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="team.id">
           <ng-container *ngFor="let group of team.stats">

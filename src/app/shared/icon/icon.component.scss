@@ -1,20 +1,25 @@
+@import 'config/mixins';
+@import 'config/variables';
 
-// SVG icons
+// Base styles
 // -----------------------------------------------------------------+
 
 #svg-defs {
-	@include offscreen();
+  @include offscreen();
 }
 
 .svg-icon {
-	display: inline-block;
-	fill: $color-grey-dark;
-	height: 1rem;
-	line-height: 1rem;
-	transition: all $anim-speed $anim-ease;
-	vertical-align: middle;
-	width: 1rem;
+  display: inline-block;
+  fill: $color-grey-dark;
+  height: 1rem;
+  line-height: 1rem;
+  transition: all $anim-speed $anim-ease;
+  vertical-align: middle;
+  width: 1rem;
 }
+
+// Icon specific styles
+// -----------------------------------------------------------------+
 
 .video-play-icon {
   display: block;
@@ -29,4 +34,10 @@
   @media (max-width: $breakpoint-mobile-max) {
     filter: drop-shadow(0 0 0.25rem rgba($color-black, 0.5));
   }
+}
+
+.team-logo {
+  display: block;
+  height: 50px;
+  width: 50px;
 }

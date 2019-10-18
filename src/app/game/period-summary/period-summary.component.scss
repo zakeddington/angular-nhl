@@ -119,8 +119,12 @@
 }
 
 .period-summary-game-info {
-  flex: 1;
   text-align: center;
+  width: 10rem;
+
+  @media (max-width: $breakpoint-mobile-max) {
+    width: 6rem;
+  }
 
   .period-summary-score {
     border: 1px solid;

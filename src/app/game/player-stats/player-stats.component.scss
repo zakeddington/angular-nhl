@@ -1,5 +1,19 @@
 @import 'config/variables';
 
+::ng-deep .player-stats--tabs {
+  ::ng-deep .team-logo {
+    background: $color-white;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.5rem;
+    padding: 5px;
+
+    @media (max-width: $breakpoint-mobile-max) {
+      display: none;
+    }
+  }
+}
+
 .goalie-stats {
   td {
     width: 8.33%;

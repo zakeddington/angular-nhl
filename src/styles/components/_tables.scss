@@ -38,6 +38,14 @@
     white-space: nowrap;
     width: 5%;
 
+    &:first-child {
+      padding-left: 1.5rem;
+    }
+
+    &:last-child {
+      padding-right: 1.5rem;
+    }
+
     @media (max-width: $breakpoint-mobile-max) {
       min-width: 4rem;
       width: 4rem;

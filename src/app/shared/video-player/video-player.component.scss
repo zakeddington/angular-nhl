@@ -1,15 +1,16 @@
+@import 'config/variables';
 
 // Video Player
 // -----------------------------------------------------------------+
 
 .video-trigger {
-	background: none;
-	border: none;
+  background: none;
+  border: none;
   display: block;
   overflow: hidden;
-	padding: 56.25% 0 0;
-	position: relative;
-	width: 100%;
+  padding: 56.25% 0 0;
+  position: relative;
+  width: 100%;
 
   img {
     height: auto;
@@ -19,22 +20,22 @@
     width: 100%;
   }
 
-	.video-play-icon {
-		height: 8rem;
-		width: 8rem;
+  ::ng-deep .video-play-icon {
+    height: 8rem;
+    width: 8rem;
 
-		@media (max-width: $breakpoint-mobile-max) {
-			height: 5rem;
-			width: 5rem;
-		}
-	}
+    @media (max-width: $breakpoint-mobile-max) {
+      height: 5rem;
+      width: 5rem;
+    }
+  }
 
-	&:hover,
-	&:focus {
-		.video-play-icon {
-			opacity: 1;
-		}
-	}
+  &:hover,
+  &:focus {
+    ::ng-deep .video-play-icon {
+      opacity: 1;
+    }
+  }
 }
 
 .video-title {

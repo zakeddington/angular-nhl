@@ -43,8 +43,9 @@
           <div class="player-detail--stats">
             <h2 class="player-detail--stats-title">Career Stats</h2>
             <ng-container *ngIf="data.pos === 'G'; else skatersLayout">
-              <table class="stats-table">
-                <thead>
+              <div class="stats-table">
+                <table>
+                  <thead>
                   <tr>
                     <th class="text-left">Season</th>
                     <th class="text-left">Team</th>
@@ -62,8 +63,8 @@
                     <th class="tooltip">SO <span class="tooltip-content">Shutouts</span></th>
                     <th class="tooltip">MIN <span class="tooltip-content">Minutes</span></th>
                   </tr>
-                </thead>
-                <tbody>
+                  </thead>
+                  <tbody>
                   <tr *ngFor="let season of data.careerStats" [class.total]="season.season === 'Total'">
                     <td class="text-left">{{season.season}}</td>
                     <td class="text-left">{{season.team.abbreviation}}</td>
@@ -81,13 +82,15 @@
                     <td>{{season.stats.shutouts}}</td>
                     <td>{{season.stats.timeOnIce}}</td>
                   </tr>
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              </div>
             </ng-container>
 
             <ng-template #skatersLayout>
-              <table class="stats-table">
-                <thead>
+              <div class="stats-table">
+                <table>
+                  <thead>
                   <tr>
                     <th class="text-left">Season</th>
                     <th class="text-left">Team</th>
@@ -109,8 +112,8 @@
                     <th class="tooltip">BS <span class="tooltip-content">Blocked Shots</span></th>
                     <th class="tooltip">FO% <span class="tooltip-content">Faceoff Win Percentage</span></th>
                   </tr>
-                </thead>
-                <tbody>
+                  </thead>
+                  <tbody>
                   <tr *ngFor="let season of data.careerStats" [class.total]="season.season === 'Total'">
                     <td class="text-left">{{season.season}}</td>
                     <td class="text-left">{{season.team.abbreviation}}</td>
@@ -132,8 +135,9 @@
                     <td>{{season.stats.blocked}}</td>
                     <td>{{season.stats.faceOffPct}}</td>
                   </tr>
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              </div>
             </ng-template>
           </div>
 

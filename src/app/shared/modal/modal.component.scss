@@ -1,5 +1,7 @@
 @import 'config/variables';
 
+// Default styles
+// -----------------------------------------------------------------+
 .modal {
   &--trigger {
     background: none;
@@ -48,8 +50,10 @@
     align-self: flex-end;
     background: none;
     border: none;
-    height: 3rem;
-    width: 3rem;
+    height: 2rem;
+    margin-bottom: 0.5rem;
+    padding: 0.25rem;
+    width: 2rem;
 
     ::ng-deep .svg-icon {
       fill: $color-white;
@@ -67,6 +71,8 @@
   }
 }
 
+// Player Detail Modal
+// -----------------------------------------------------------------+
 .player-detail {
   &--hero {
     background: center center no-repeat;
@@ -79,11 +85,18 @@
   }
 
   &--bio {
+    background: $color-grey-med;
+    border-bottom: 4px solid $color-white;
+    border-top: 4px solid $color-white;
     display: flex;
     font-weight: 400;
     padding: 1rem;
     position: relative;
     text-align: left;
+
+    @media (max-width: $breakpoint-mobile-max) {
+      flex-direction: column;
+    }
 
     &-info {
       flex: 1;
@@ -93,6 +106,10 @@
   &--name {
     font-size: 2rem;
     font-weight: 700;
+
+    @media (max-width: $breakpoint-mobile-max) {
+      font-size: 1.5rem;
+    }
   }
 
   &--stat {
@@ -105,9 +122,16 @@
   }
 
   ::ng-deep .player-photo {
+    border-width: 5px;
     height: 12rem;
     margin: -3rem 2rem 0 1rem;
     width: 12rem;
+
+    @media (max-width: $breakpoint-mobile-max) {
+      border-width: 3px;
+      height: 4rem;
+      width: 4rem;
+    }
 
     &:hover,
     &:focus {
@@ -118,6 +142,7 @@
   &--stats {
     &-title {
       background: $color-grey-dark;
+      border-top: 1px solid $color-grey;
       color: $color-white;
       font-size: 1rem;
       margin-bottom: 0;

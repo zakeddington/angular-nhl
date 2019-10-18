@@ -3,11 +3,17 @@
 // -----------------------------------------------------------------+
 
 .stats-table {
-  background: $color-white;
-  font-size: 0.875rem;
-  margin: 0;
-  text-align: right;
+  overflow-x: auto;
   width: 100%;
+
+  table {
+    background: $color-white;
+    font-size: 0.875rem;
+    margin: 0;
+    overflow: hidden;
+    text-align: right;
+    width: 100%;
+  }
 
   tr {
     border-bottom: 1px solid $color-grey-med;
@@ -32,8 +38,18 @@
     white-space: nowrap;
     width: 5%;
 
+    @media (max-width: $breakpoint-mobile-max) {
+      min-width: 4rem;
+      width: 4rem;
+    }
+
     &.stats-table--name {
       width: 20%;
+
+      @media (max-width: $breakpoint-mobile-max) {
+        min-width: 12rem;
+        width: 12rem;
+      }
     }
   }
 
@@ -45,7 +61,5 @@
   td {
     font-weight: 500;
   }
-
-
 }
 

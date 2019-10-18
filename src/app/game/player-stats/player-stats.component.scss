@@ -6,10 +6,20 @@
 
     &.stats-table--jersey {
       width: 5%;
+
+      @media (max-width: $breakpoint-tablet-max) {
+        min-width: 4rem;
+        width: 4rem;
+      }
     }
 
     &.stats-table--name {
       width: 20%;
+
+      @media (max-width: $breakpoint-tablet-max) {
+        min-width: 12rem;
+        width: 12rem;
+      }
     }
   }
 }

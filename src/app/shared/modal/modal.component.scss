@@ -39,7 +39,7 @@
     max-height: 90vh;
     max-width: $container-width-desktop-wide;
     min-height: 400px;
-    overflow: scroll;
+    overflow-y: auto;
     padding: 0;
     position: relative;
     width: 90%;

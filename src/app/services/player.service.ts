@@ -40,7 +40,7 @@ export class PlayerService {
   }
 
   async processPlayerData(data) {
-    console.log('processPlayerData', data);
+    // console.log('processPlayerData', data);
     const player = data.people[0];
     const birthDate = moment(player.birthDate).format(CONSTANTS.momentOptions.birthFormat);
     const birthCity = player.birthCity;
@@ -111,18 +111,15 @@ export class PlayerService {
     validateHeroImg.src = hero;
     validateHeroImg.onerror = () => {
       results.hero = arena;
-      console.log('player results', results);
       this.playerData.next(results);
     };
 
     validateHeroImg.onload = () => {
-      console.log('player results', results);
       this.playerData.next(results);
     };
   }
 
   createYearStats(data) {
-    console.log('createYearStats', data);
     const stats = [];
 
     data.map((item) => {
@@ -147,12 +144,10 @@ export class PlayerService {
   }
 
   createTotalStats(data) {
-
     if (data.length) {
-      let stats = {};
       data[0].stat.goalAgainstAverage = (Math.round(data[0].stat.goalAgainstAverage * 100) / 100).toFixed(2);
       data[0].stat.savePercentage = (Math.round(data[0].stat.savePercentage * 1000) / 1000).toFixed(3);
-      stats = data[0].stat;
+      const stats = data[0].stat;
 
       return {
         season: 'Total',

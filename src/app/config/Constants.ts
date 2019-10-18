@@ -41,16 +41,4 @@ export const CONSTANTS = {
     minute       : '2-digit',
     timeZoneName : 'short',
   },
-
-  isMobileView: null,
-  isTabletView: null,
-  isDesktopView: null,
-
-  currentBreakpoint: null,
-
-  breakpoints: {
-    1: 'mobile',
-    2: 'tablet',
-    3: 'desktop'
-  }
 };

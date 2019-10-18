@@ -59,18 +59,37 @@ export class PlayerService {
       birthPlace = `${birthCity}, ${birthPlace}`;
     }
 
-    let careerStats = [];
-    let careerStatsTotal = {};
+    let seasonStats = [];
+    let seasonStatsTotal = {};
+    let playoffStats = [];
+    let playoffStatsTotal = {};
 
     player.stats.map((stats) => {
-      if (stats.type.displayName === 'yearByYear') {
-        careerStats = this.createCareerSeasonStats(stats.splits);
-      } else if (stats.type.displayName === 'careerRegularSeason') {
-        careerStatsTotal = this.createCareerTotalStats(stats.splits);
+      switch (stats.type.displayName) {
+        case 'yearByYear':
+          seasonStats = this.createYearStats(stats.splits);
+          return;
+        case 'careerRegularSeason':
+          seasonStatsTotal = this.createTotalStats(stats.splits);
+          return;
+        case 'yearByYearPlayoffs':
+          playoffStats = this.createYearStats(stats.splits);
+          return;
+        case 'careerPlayoffs':
+          playoffStatsTotal = this.createTotalStats(stats.splits);
+          return;
+        default:
+          return;
       }
     });
 
-    careerStats.push(careerStatsTotal);
+    if (seasonStatsTotal) {
+      seasonStats.push(seasonStatsTotal);
+    }
+
+    if (playoffStatsTotal) {
+      playoffStats.push(playoffStatsTotal);
+    }
 
     const results = {
       showNoResults: false,
@@ -85,7 +104,8 @@ export class PlayerService {
       shoots: player.shootsCatches,
       headshot,
       hero,
-      careerStats,
+      seasonStats,
+      playoffStats,
     };
 
     validateHeroImg.src = hero;
@@ -101,7 +121,8 @@ export class PlayerService {
     };
   }
 
-  createCareerSeasonStats(data) {
+  createYearStats(data) {
+    console.log('createYearStats', data);
     const stats = [];
 
     data.map((item) => {
@@ -125,17 +146,24 @@ export class PlayerService {
     return stats;
   }
 
-  createCareerTotalStats(data) {
-    data[0].stat.goalAgainstAverage = (Math.round(data[0].stat.goalAgainstAverage * 100) / 100).toFixed(2);
-    data[0].stat.savePercentage = (Math.round(data[0].stat.savePercentage * 1000) / 1000).toFixed(3);
+  createTotalStats(data) {
 
-    return {
-      season: 'Total',
-      team: {
-        abbreviation: '',
-        id: '',
-      },
-      stats: data[0].stat,
-    };
+    if (data.length) {
+      let stats = {};
+      data[0].stat.goalAgainstAverage = (Math.round(data[0].stat.goalAgainstAverage * 100) / 100).toFixed(2);
+      data[0].stat.savePercentage = (Math.round(data[0].stat.savePercentage * 1000) / 1000).toFixed(3);
+      stats = data[0].stat;
+
+      return {
+        season: 'Total',
+        team: {
+          abbreviation: '',
+          id: '',
+        },
+        stats,
+      };
+    }
+
+    return null;
   }
 }

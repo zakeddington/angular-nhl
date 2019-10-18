@@ -46,7 +46,7 @@ export class ApiService {
   }
 
   getPlayerData(playerId) {
-    const url = `${this.statsBaseUrl}people/${playerId}?expand=person.stats&stats=yearByYear,careerRegularSeason&expand=stats.team&site=en_nhl`;
+    const url = `${this.statsBaseUrl}people/${playerId}?expand=person.stats&stats=yearByYear,careerRegularSeason,yearByYearPlayoffs,careerPlayoffs&expand=stats.team&site=en_nhl`;
 
     return this.getData(url).pipe(
       // disabled due to cors error on records api

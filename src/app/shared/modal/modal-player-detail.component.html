@@ -15,26 +15,26 @@
           <div class="player-detail--bio">
             <app-player-photo [photoUrl]="data.headshot"></app-player-photo>
             <div class="player-detail--bio-info">
-              <div class="player-detail--name">{{data.name}} #{{data.number}}</div>
+              <div class="player-detail--bio-name">{{data.name}} #{{data.number}}</div>
               <div>
-                <span class="player-detail--stat">{{data.pos}} | {{data.height}} | {{data.weight}} lbs</span>
+                <span class="player-detail--bio-stat">{{data.pos}} | {{data.height}} | {{data.weight}} lbs</span>
               </div>
               <div>
-                <span class="player-detail--stat">
-                  <span class="player-detail--label">Shoots:</span> {{data.shoots}}
+                <span class="player-detail--bio-stat">
+                  <span class="player-detail--bio-label">Shoots:</span> {{data.shoots}}
                 </span>
               </div>
               <div>
-                <span class="player-detail--stat">
-                  <span class="player-detail--label">Born:</span> {{data.birthDate}}
+                <span class="player-detail--bio-stat">
+                  <span class="player-detail--bio-label">Born:</span> {{data.birthDate}}
                 </span>
-                <span class="player-detail--stat">
-                  <span class="player-detail--label">Age:</span> {{data.age}}
+                <span class="player-detail--bio-stat">
+                  <span class="player-detail--bio-label">Age:</span> {{data.age}}
                 </span>
               </div>
               <div>
-                <span class="player-detail--stat">
-                  <span class="player-detail--label">Birthplace:</span> {{data.birthPlace}}
+                <span class="player-detail--bio-stat">
+                  <span class="player-detail--bio-label">Birthplace:</span> {{data.birthPlace}}
                 </span>
               </div>
             </div>
@@ -49,8 +49,8 @@
                       <table>
                         <thead>
                         <tr>
-                          <th class="text-left">Season</th>
-                          <th class="text-left">Team</th>
+                          <th class="stats-table--pinned text-left">Season</th>
+                          <th class="stats-table--spacer text-left">Team</th>
                           <th class="tooltip">GP <span class="tooltip-content">Games Played</span></th>
                           <th class="tooltip">GS <span class="tooltip-content">Games Started</span></th>
                           <th class="tooltip">W <span class="tooltip-content">Wins</span></th>
@@ -68,8 +68,8 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let season of data.seasonStats" [class.total]="season.season === 'Total'">
-                          <td class="text-left">{{season.season}}</td>
-                          <td class="text-left">{{season.team.abbreviation}}</td>
+                          <td class="stats-table--pinned text-left">{{season.season}}</td>
+                          <td class="stats-table--spacer text-left">{{season.team.abbreviation}}</td>
                           <td>{{season.stats.games}}</td>
                           <td>{{season.stats.gamesStarted}}</td>
                           <td>{{season.stats.wins}}</td>
@@ -94,8 +94,8 @@
                       <table>
                         <thead>
                         <tr>
-                          <th class="text-left">Season</th>
-                          <th class="text-left">Team</th>
+                          <th class="stats-table--pinned text-left">Season</th>
+                          <th class="stats-table--spacer text-left">Team</th>
                           <th class="tooltip">GP <span class="tooltip-content">Games Played</span></th>
                           <th class="tooltip">G <span class="tooltip-content">Goals</span></th>
                           <th class="tooltip">A <span class="tooltip-content">Assists</span></th>
@@ -117,8 +117,8 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let season of data.seasonStats" [class.total]="season.season === 'Total'">
-                          <td class="text-left">{{season.season}}</td>
-                          <td class="text-left">{{season.team.abbreviation}}</td>
+                          <td class="stats-table--pinned text-left">{{season.season}}</td>
+                          <td class="stats-table--spacer text-left">{{season.team.abbreviation}}</td>
                           <td>{{season.stats.games}}</td>
                           <td>{{season.stats.goals}}</td>
                           <td>{{season.stats.assists}}</td>
@@ -155,8 +155,8 @@
                       <table>
                         <thead>
                         <tr>
-                          <th class="text-left">Season</th>
-                          <th class="text-left">Team</th>
+                          <th class="stats-table--pinned text-left">Season</th>
+                          <th class="stats-table--spacer text-left">Team</th>
                           <th class="tooltip">GP <span class="tooltip-content">Games Played</span></th>
                           <th class="tooltip">GS <span class="tooltip-content">Games Started</span></th>
                           <th class="tooltip">W <span class="tooltip-content">Wins</span></th>
@@ -174,8 +174,8 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let season of data.playoffStats" [class.total]="season.season === 'Total'">
-                          <td class="text-left">{{season.season}}</td>
-                          <td class="text-left">{{season.team.abbreviation}}</td>
+                          <td class="stats-table--pinned text-left">{{season.season}}</td>
+                          <td class="stats-table--spacer text-left">{{season.team.abbreviation}}</td>
                           <td>{{season.stats.games}}</td>
                           <td>{{season.stats.gamesStarted}}</td>
                           <td>{{season.stats.wins}}</td>
@@ -200,8 +200,8 @@
                       <table>
                         <thead>
                         <tr>
-                          <th class="text-left">Season</th>
-                          <th class="text-left">Team</th>
+                          <th class="stats-table--pinned text-left">Season</th>
+                          <th class="stats-table--spacer text-left">Team</th>
                           <th class="tooltip">GP <span class="tooltip-content">Games Played</span></th>
                           <th class="tooltip">G <span class="tooltip-content">Goals</span></th>
                           <th class="tooltip">A <span class="tooltip-content">Assists</span></th>
@@ -223,8 +223,8 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let season of data.playoffStats" [class.total]="season.season === 'Total'">
-                          <td class="text-left">{{season.season}}</td>
-                          <td class="text-left">{{season.team.abbreviation}}</td>
+                          <td class="stats-table--pinned text-left">{{season.season}}</td>
+                          <td class="stats-table--spacer text-left">{{season.team.abbreviation}}</td>
                           <td>{{season.stats.games}}</td>
                           <td>{{season.stats.goals}}</td>
                           <td>{{season.stats.assists}}</td>

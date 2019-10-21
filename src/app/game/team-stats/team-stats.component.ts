@@ -14,7 +14,7 @@ export class TeamStatsComponent implements OnInit, OnDestroy {
   logoBaseUrl: string;
 
   constructor(private gameService: GameService) {
-    this.data$ = this.gameService.subscribeToGameData();
+    this.data$ = this.gameService.subscribeToGamePlayerData();
   }
 
   ngOnInit() {

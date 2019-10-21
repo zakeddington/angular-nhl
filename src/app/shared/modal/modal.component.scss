@@ -101,24 +101,24 @@
     &-info {
       flex: 1;
     }
-  }
 
-  &--name {
-    font-size: 2rem;
-    font-weight: 700;
+    &-name {
+      font-size: 2rem;
+      font-weight: 700;
 
-    @media (max-width: $breakpoint-mobile-max) {
-      font-size: 1.5rem;
+      @media (max-width: $breakpoint-mobile-max) {
+        font-size: 1.5rem;
+      }
     }
-  }
 
-  &--stat {
-    display: inline-block;
-    margin: 0 1rem 0.25rem 0;
-  }
+    &-stat {
+      display: inline-block;
+      margin: 0 1rem 0.25rem 0;
+    }
 
-  &--label {
-    font-weight: 600;
+    &-label {
+      font-weight: 600;
+    }
   }
 
   ::ng-deep .player-photo {

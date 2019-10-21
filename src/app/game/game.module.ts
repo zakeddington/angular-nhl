@@ -6,9 +6,9 @@ import { GameComponent } from './game.component';
 import { GameHeaderComponent } from './game-header/game-header.component';
 import { GameIntroComponent } from './game-intro/game-intro.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
-import { TeamStatsComponent } from './team-stats/team-stats.component';
+import { GameStatsComponent } from './game-stats/game-stats.component';
 import { PeriodSummaryComponent } from './period-summary/period-summary.component';
-import { PlayerStatsComponent } from './player-stats/player-stats.component';
+import { TeamStatsComponent } from './team-stats/team-stats.component';
 
 @NgModule({
   declarations: [
@@ -16,9 +16,9 @@ import { PlayerStatsComponent } from './player-stats/player-stats.component';
     GameHeaderComponent,
     GameIntroComponent,
     ScoreboardComponent,
-    TeamStatsComponent,
+    GameStatsComponent,
     PeriodSummaryComponent,
-    PlayerStatsComponent,
+    TeamStatsComponent,
   ],
   imports: [
     CommonModule,

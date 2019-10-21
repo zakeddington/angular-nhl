@@ -1,62 +1,44 @@
 @import 'config/variables';
 
-// Team Stats Table
-// -----------------------------------------------------------------+
+::ng-deep .team-stats--tabs {
+  ::ng-deep .team-logo {
+    background: $color-white;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.5rem;
+    padding: 5px;
 
-.team-stats {
-  margin-bottom: 0;
-
-  table {
-    text-align: center;
+    @media (max-width: $breakpoint-mobile-max) {
+      display: none;
+    }
   }
+}
 
-  th,
+@media (max-width: $breakpoint-mobile-max) {
+  .stats-table--spacer {
+    padding-left: 17rem;
+  }
+}
+
+.goalie-stats {
   td {
-    width: 10%;
-  }
+    width: 8.33%;
 
-  th {
-    font-weight: 400;
-  }
+    &.stats-table--jersey {
+      width: 5%;
 
-  td {
-    font-weight: 600;
-
-    @media (min-width: $breakpoint-tablet-min) {
-      font-size: 1.5rem;
-    }
-  }
-
-  &--team {
-    text-align: left;
-    white-space: nowrap;
-
-    @media (min-width: $breakpoint-desktop-min) {
-      width: 20%;
-    }
-
-    @media (min-width: $breakpoint-tablet-min) {
-      font-size: 1.125rem;
-      padding-left: 2em;
-    }
-
-    ::ng-deep .team-logo {
-      display: inline-block;
-      vertical-align: middle;
-
-      @media (max-width: $breakpoint-mobile-max) {
-        height: 30px;
-        width: 30px;
+      @media (max-width: $breakpoint-tablet-max) {
+        min-width: 4rem;
+        width: 4rem;
       }
     }
 
-    &-name {
-      display: inline-block;
-      padding-left: 0.5em;
-      vertical-align: middle;
+    &.stats-table--name {
+      width: 20%;
 
       @media (max-width: $breakpoint-tablet-max) {
-        display: none;
+        min-width: 12rem;
+        width: 12rem;
       }
     }
   }

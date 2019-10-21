@@ -8,8 +8,8 @@
       <table>
         <thead>
         <tr>
-          <th></th>
-          <th class="tooltip">SOG <span class="tooltip-content">Shots on Goal</span></th>
+          <th class="stats-table--pinned">&nbsp;</th>
+          <th class="stats-table--spacer tooltip">SOG <span class="tooltip-content">Shots on Goal</span></th>
           <th class="tooltip">FO% <span class="tooltip-content">Faceoff Win Percentage</span></th>
           <th class="tooltip">PP <span class="tooltip-content">Power Play Goals/Opportunities</span></th>
           <th class="tooltip">PIM <span class="tooltip-content">Penalty Minutes</span></th>
@@ -21,11 +21,11 @@
         </thead>
         <tbody>
           <tr *ngIf="data.boxscoreTeams.away; let teamData">
-            <td class="game-stats--team">
+            <td class="stats-table--pinned game-stats--team">
               <app-icon [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="data.teams.away.id"></app-icon>
               <span class="game-stats--team-name">{{data.teams.away.name}}</span>
             </td>
-            <td>{{teamData.teamStats.teamSkaterStats.shots}}</td>
+            <td class="stats-table--spacer">{{teamData.teamStats.teamSkaterStats.shots}}</td>
             <td>{{teamData.teamStats.teamSkaterStats.faceOffWinPercentage}}</td>
             <td>{{teamData.teamStats.teamSkaterStats.powerPlayGoals}}/{{teamData.teamStats.teamSkaterStats.powerPlayOpportunities}}</td>
             <td>{{teamData.teamStats.teamSkaterStats.pim}}</td>
@@ -35,11 +35,11 @@
             <td>{{teamData.teamStats.teamSkaterStats.takeaways}}</td>
           </tr>
           <tr *ngIf="data.boxscoreTeams.home; let teamData">
-            <td class="game-stats--team">
+            <td class="stats-table--pinned game-stats--team">
               <app-icon [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="data.teams.home.id"></app-icon>
               <span class="game-stats--team-name">{{data.teams.home.name}}</span>
             </td>
-            <td>{{teamData.teamStats.teamSkaterStats.shots}}</td>
+            <td class="stats-table--spacer">{{teamData.teamStats.teamSkaterStats.shots}}</td>
             <td>{{teamData.teamStats.teamSkaterStats.faceOffWinPercentage}}</td>
             <td>{{teamData.teamStats.teamSkaterStats.powerPlayGoals}}/{{teamData.teamStats.teamSkaterStats.powerPlayOpportunities}}</td>
             <td>{{teamData.teamStats.teamSkaterStats.pim}}</td>

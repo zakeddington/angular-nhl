@@ -13,10 +13,32 @@
   th,
   td {
     width: 10%;
+
+    @media (max-width: $breakpoint-mobile-max) {
+      height: 40px;
+      min-width: 50px;
+      padding: 5px;
+      width: 50px;
+
+      &:first-child {
+        height: 39px;
+        min-width: 60px;
+        padding-left: 15px;
+        width: 60px;
+      }
+
+      &.stats-table--spacer {
+        padding-left: 75px;
+      }
+    }
   }
 
   th {
     font-weight: 400;
+
+    @media (max-width: $breakpoint-mobile-max) {
+      height: 30px;
+    }
   }
 
   td {

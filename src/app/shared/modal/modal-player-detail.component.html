@@ -43,54 +43,53 @@
           <app-tabs>
             <app-tabs-content tabTitle="Regular Season">
               <ng-container *ngIf="data.seasonStats.length > 0; else noSeasonStats">
-                <div class="player-detail--stats">
-                  <ng-container *ngIf="data.pos === 'G'; else skatersSeasonLayout">
-                    <div class="stats-table">
-                      <table>
-                        <thead>
-                        <tr>
-                          <th class="stats-table--pinned text-left">Season</th>
-                          <th class="stats-table--spacer text-left">Team</th>
-                          <th class="tooltip">GP <span class="tooltip-content">Games Played</span></th>
-                          <th class="tooltip">GS <span class="tooltip-content">Games Started</span></th>
-                          <th class="tooltip">W <span class="tooltip-content">Wins</span></th>
-                          <th class="tooltip">L <span class="tooltip-content">Losses</span></th>
-                          <th class="tooltip">T <span class="tooltip-content">Ties</span></th>
-                          <th class="tooltip">OT <span class="tooltip-content">Overtime Losses</span></th>
-                          <th class="tooltip">SA <span class="tooltip-content">Shots Against</span></th>
-                          <th class="tooltip">GA <span class="tooltip-content">Goals Against</span></th>
-                          <th class="tooltip">GAA <span class="tooltip-content">Goals Against Average</span></th>
-                          <th class="tooltip">SV <span class="tooltip-content">Saves</span></th>
-                          <th class="tooltip">SV% <span class="tooltip-content">Save Percentage</span></th>
-                          <th class="tooltip">SO <span class="tooltip-content">Shutouts</span></th>
-                          <th class="tooltip">MIN <span class="tooltip-content">Minutes</span></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let season of data.seasonStats" [class.total]="season.season === 'Total'">
-                          <td class="stats-table--pinned text-left">{{season.season}}</td>
-                          <td class="stats-table--spacer text-left">{{season.team.abbreviation}}</td>
-                          <td>{{season.stats.games}}</td>
-                          <td>{{season.stats.gamesStarted}}</td>
-                          <td>{{season.stats.wins}}</td>
-                          <td>{{season.stats.losses}}</td>
-                          <td>{{season.stats.ties}}</td>
-                          <td>{{season.stats.ot}}</td>
-                          <td>{{season.stats.shotsAgainst}}</td>
-                          <td>{{season.stats.goalsAgainst}}</td>
-                          <td>{{season.stats.goalAgainstAverage}}</td>
-                          <td>{{season.stats.saves}}</td>
-                          <td>{{season.stats.savePercentage}}</td>
-                          <td>{{season.stats.shutouts}}</td>
-                          <td>{{season.stats.timeOnIce}}</td>
-                        </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </ng-container>
+                <ng-container *ngIf="data.pos === 'G'; else skatersSeasonLayout">
+                  <div class="stats-table player-stats">
+                    <table>
+                      <thead>
+                      <tr>
+                        <th class="stats-table--pinned text-left">Season</th>
+                        <th class="stats-table--spacer text-left">Team</th>
+                        <th class="tooltip">GP <span class="tooltip-content">Games Played</span></th>
+                        <th class="tooltip">GS <span class="tooltip-content">Games Started</span></th>
+                        <th class="tooltip">W <span class="tooltip-content">Wins</span></th>
+                        <th class="tooltip">L <span class="tooltip-content">Losses</span></th>
+                        <th class="tooltip">T <span class="tooltip-content">Ties</span></th>
+                        <th class="tooltip">OT <span class="tooltip-content">Overtime Losses</span></th>
+                        <th class="tooltip">SA <span class="tooltip-content">Shots Against</span></th>
+                        <th class="tooltip">GA <span class="tooltip-content">Goals Against</span></th>
+                        <th class="tooltip">GAA <span class="tooltip-content">Goals Against Average</span></th>
+                        <th class="tooltip">SV <span class="tooltip-content">Saves</span></th>
+                        <th class="tooltip">SV% <span class="tooltip-content">Save Percentage</span></th>
+                        <th class="tooltip">SO <span class="tooltip-content">Shutouts</span></th>
+                        <th class="tooltip">MIN <span class="tooltip-content">Minutes</span></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let season of data.seasonStats" [class.total]="season.season === 'Total'">
+                        <td class="stats-table--pinned text-left">{{season.season}}</td>
+                        <td class="stats-table--spacer text-left">{{season.team.abbreviation}}</td>
+                        <td>{{season.stats.games}}</td>
+                        <td>{{season.stats.gamesStarted}}</td>
+                        <td>{{season.stats.wins}}</td>
+                        <td>{{season.stats.losses}}</td>
+                        <td>{{season.stats.ties}}</td>
+                        <td>{{season.stats.ot}}</td>
+                        <td>{{season.stats.shotsAgainst}}</td>
+                        <td>{{season.stats.goalsAgainst}}</td>
+                        <td>{{season.stats.goalAgainstAverage}}</td>
+                        <td>{{season.stats.saves}}</td>
+                        <td>{{season.stats.savePercentage}}</td>
+                        <td>{{season.stats.shutouts}}</td>
+                        <td>{{season.stats.timeOnIce}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </ng-container>
 
-                  <ng-template #skatersSeasonLayout>
-                    <div class="stats-table">
+                <ng-template #skatersSeasonLayout>
+                    <div class="stats-table player-stats">
                       <table>
                         <thead>
                         <tr>
@@ -141,7 +140,6 @@
                       </table>
                     </div>
                   </ng-template>
-                </div>
               </ng-container>
               <ng-template #noSeasonStats>
                 <h2 class="error-msg">No regular season stats available.</h2>
@@ -149,54 +147,53 @@
             </app-tabs-content>
             <app-tabs-content tabTitle="Playoffs">
               <ng-container *ngIf="data.playoffStats.length > 0; else noPlayoffStats">
-                <div class="player-detail--stats">
-                  <ng-container *ngIf="data.pos === 'G'; else skatersPlayoffLayout">
-                    <div class="stats-table">
-                      <table>
-                        <thead>
-                        <tr>
-                          <th class="stats-table--pinned text-left">Season</th>
-                          <th class="stats-table--spacer text-left">Team</th>
-                          <th class="tooltip">GP <span class="tooltip-content">Games Played</span></th>
-                          <th class="tooltip">GS <span class="tooltip-content">Games Started</span></th>
-                          <th class="tooltip">W <span class="tooltip-content">Wins</span></th>
-                          <th class="tooltip">L <span class="tooltip-content">Losses</span></th>
-                          <th class="tooltip">T <span class="tooltip-content">Ties</span></th>
-                          <th class="tooltip">OT <span class="tooltip-content">Overtime Losses</span></th>
-                          <th class="tooltip">SA <span class="tooltip-content">Shots Against</span></th>
-                          <th class="tooltip">GA <span class="tooltip-content">Goals Against</span></th>
-                          <th class="tooltip">GAA <span class="tooltip-content">Goals Against Average</span></th>
-                          <th class="tooltip">SV <span class="tooltip-content">Saves</span></th>
-                          <th class="tooltip">SV% <span class="tooltip-content">Save Percentage</span></th>
-                          <th class="tooltip">SO <span class="tooltip-content">Shutouts</span></th>
-                          <th class="tooltip">MIN <span class="tooltip-content">Minutes</span></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let season of data.playoffStats" [class.total]="season.season === 'Total'">
-                          <td class="stats-table--pinned text-left">{{season.season}}</td>
-                          <td class="stats-table--spacer text-left">{{season.team.abbreviation}}</td>
-                          <td>{{season.stats.games}}</td>
-                          <td>{{season.stats.gamesStarted}}</td>
-                          <td>{{season.stats.wins}}</td>
-                          <td>{{season.stats.losses}}</td>
-                          <td>{{season.stats.ties}}</td>
-                          <td>{{season.stats.ot}}</td>
-                          <td>{{season.stats.shotsAgainst}}</td>
-                          <td>{{season.stats.goalsAgainst}}</td>
-                          <td>{{season.stats.goalAgainstAverage}}</td>
-                          <td>{{season.stats.saves}}</td>
-                          <td>{{season.stats.savePercentage}}</td>
-                          <td>{{season.stats.shutouts}}</td>
-                          <td>{{season.stats.timeOnIce}}</td>
-                        </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </ng-container>
+                <ng-container *ngIf="data.pos === 'G'; else skatersPlayoffLayout">
+                  <div class="stats-table player-stats">
+                    <table>
+                      <thead>
+                      <tr>
+                        <th class="stats-table--pinned text-left">Season</th>
+                        <th class="stats-table--spacer text-left">Team</th>
+                        <th class="tooltip">GP <span class="tooltip-content">Games Played</span></th>
+                        <th class="tooltip">GS <span class="tooltip-content">Games Started</span></th>
+                        <th class="tooltip">W <span class="tooltip-content">Wins</span></th>
+                        <th class="tooltip">L <span class="tooltip-content">Losses</span></th>
+                        <th class="tooltip">T <span class="tooltip-content">Ties</span></th>
+                        <th class="tooltip">OT <span class="tooltip-content">Overtime Losses</span></th>
+                        <th class="tooltip">SA <span class="tooltip-content">Shots Against</span></th>
+                        <th class="tooltip">GA <span class="tooltip-content">Goals Against</span></th>
+                        <th class="tooltip">GAA <span class="tooltip-content">Goals Against Average</span></th>
+                        <th class="tooltip">SV <span class="tooltip-content">Saves</span></th>
+                        <th class="tooltip">SV% <span class="tooltip-content">Save Percentage</span></th>
+                        <th class="tooltip">SO <span class="tooltip-content">Shutouts</span></th>
+                        <th class="tooltip">MIN <span class="tooltip-content">Minutes</span></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let season of data.playoffStats" [class.total]="season.season === 'Total'">
+                        <td class="stats-table--pinned text-left">{{season.season}}</td>
+                        <td class="stats-table--spacer text-left">{{season.team.abbreviation}}</td>
+                        <td>{{season.stats.games}}</td>
+                        <td>{{season.stats.gamesStarted}}</td>
+                        <td>{{season.stats.wins}}</td>
+                        <td>{{season.stats.losses}}</td>
+                        <td>{{season.stats.ties}}</td>
+                        <td>{{season.stats.ot}}</td>
+                        <td>{{season.stats.shotsAgainst}}</td>
+                        <td>{{season.stats.goalsAgainst}}</td>
+                        <td>{{season.stats.goalAgainstAverage}}</td>
+                        <td>{{season.stats.saves}}</td>
+                        <td>{{season.stats.savePercentage}}</td>
+                        <td>{{season.stats.shutouts}}</td>
+                        <td>{{season.stats.timeOnIce}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </ng-container>
 
-                  <ng-template #skatersPlayoffLayout>
-                    <div class="stats-table">
+                <ng-template #skatersPlayoffLayout>
+                    <div class="stats-table player-stats">
                       <table>
                         <thead>
                         <tr>
@@ -247,7 +244,6 @@
                       </table>
                     </div>
                   </ng-template>
-                </div>
               </ng-container>
               <ng-template #noPlayoffStats>
                 <h2 class="error-msg">No playoff stats available.</h2>

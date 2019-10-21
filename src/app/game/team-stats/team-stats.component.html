@@ -9,7 +9,7 @@
         <app-tabs-content [tabTitle]="team.name" [iconClass]="'team-logo'" [iconBaseUrl]="logoBaseUrl" [iconId]="team.id">
           <ng-container *ngFor="let group of team.stats">
             <ng-container *ngIf="group.position == 'Goalies'; else skatersLayout">
-              <div class="stats-table goalie-stats">
+              <div class="stats-table team-stats goalie-stats">
                 <table>
                   <thead>
                   <tr>
@@ -49,7 +49,7 @@
             </ng-container>
 
             <ng-template #skatersLayout>
-              <div class="stats-table">
+              <div class="stats-table team-stats">
                 <table>
                   <thead>
                   <tr>

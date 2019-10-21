@@ -49,15 +49,6 @@
     @media (max-width: $breakpoint-mobile-max) {
       min-width: 4rem;
       width: 4rem;
-
-      &.stats-table--pinned {
-        position: absolute;
-        z-index: $z-index-default;
-      }
-
-      &.stats-table--spacer {
-        padding-left: 17rem;
-      }
     }
 
     &.stats-table--name {
@@ -79,6 +70,17 @@
   td {
     background: $color-white;
     font-weight: 500;
+  }
+
+  @media (max-width: $breakpoint-mobile-max) {
+    .stats-table--pinned {
+      position: absolute;
+      z-index: $z-index-default;
+    }
+
+    //.stats-table--spacer {
+    //  padding-left: 17rem;
+    //}
   }
 }
 
